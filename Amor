@@ -118,11 +118,13 @@ button {
         <img src="LINK_FOTO3">
     </div>
 
-    <div class="card">
-        <p>Você mudou meus dias.</p>
-        <p>Seu sorriso é meu lugar favorito.</p>
-        <p>E eu escolheria você mil vezes.</p>
-    </div>
+    <div class="card gallery">
+    <img src="Screenshot_2026-02-14-16-01-32-961_NOMECOMPLETO.jpg">
+    <img src="IMG-20260207-WA0098.jpg">
+    <img src="IMG-20260130-WA0087.jpg">
+    <img src="IMG-20260117-WA0010.jpg">
+    <img src="IMG-20260117-WA0007.jpg">
+</div>
 
     <button onclick="mostrarSurpresa()">Desbloquear surpresa 💌</button>
 
