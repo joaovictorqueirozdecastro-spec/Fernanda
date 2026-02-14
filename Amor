@@ -3,84 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nosso App 💖</title>
+<title>LoveApp 💖</title>
+
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+    overflow-x: hidden;
+    color: white;
     text-align: center;
-    color: #333;
 }
-.container {
+
+.login-screen {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    color: #ff4d6d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.app {
     padding: 20px;
+    display: none;
 }
-h1 {
-    font-size: 28px;
+
+.card {
+    background: white;
+    color: #333;
+    border-radius: 20px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
+
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
-    margin-top: 20px;
 }
+
 .gallery img {
     width: 100%;
     border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-.message {
-    margin-top: 20px;
-    font-size: 18px;
-}
-button {
-    margin-top: 20px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: #ff4d6d;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-button:hover {
-    background-color: #e63956;
-}
-.hidden {
+
+.surprise {
     display: none;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #ff4d6d;
+}
+
+.heart {
+    position: fixed;
+    top: -10px;
+    color: pink;
+    font-size: 20px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="login-screen">
+    <h2>🔒 LoveApp Privado</h2>
+    <p>Digite a senha para acessar</p>
+    <input type="password" id="senha" placeholder="Senha secreta">
+    <button onclick="verificarSenha()">Entrar 💕</button>
+</div>
+
+<div class="app">
     <h1>💖 Aplicativo Oficial da Minha Namorada 💖</h1>
-    <p>Usuária exclusiva: Você 😌</p>
 
-    <div class="gallery">
-        <img src="LINK_DA_FOTO1">
-        <img src="LINK_DA_FOTO2">
-        <img src="LINK_DA_FOTO3">
+    <div class="card">
+        <h3>Perfil</h3>
+        <p>Status: Dona do meu coração 😌</p>
     </div>
 
-    <div class="message">
-        <p>Desde que você entrou na minha vida, tudo ficou mais leve.</p>
-        <p>Eu amo seu jeito, sua risada, até suas manias.</p>
-        <p>E isso aqui é só uma pequena prova do quanto você é importante pra mim.</p>
+    <div class="card gallery">
+        <img src="LINK_FOTO1">
+        <img src="LINK_FOTO2">
+        <img src="LINK_FOTO3">
     </div>
 
-    <button onclick="mostrarMensagem()">Clique para desbloquear surpresa 🔓</button>
+    <div class="card">
+        <p>Você mudou meus dias.</p>
+        <p>Seu sorriso é meu lugar favorito.</p>
+        <p>E eu escolheria você mil vezes.</p>
+    </div>
 
-    <div id="surpresa" class="hidden">
-        <h2>Eu te amo ❤️</h2>
-        <p>Obrigada por existir na minha vida.</p>
+    <button onclick="mostrarSurpresa()">Desbloquear surpresa 💌</button>
+
+    <div class="surprise" id="surpresa">
+        EU TE AMO ❤️
     </div>
 </div>
 
+<audio id="musica" autoplay loop>
+    <source src="LINK_DA_MUSICA" type="audio/mpeg">
+</audio>
+
 <script>
-function mostrarMensagem() {
-    document.getElementById("surpresa").classList.remove("hidden");
+function verificarSenha() {
+    var senhaCorreta = "291125";
+    var senhaDigitada = document.getElementById("senha").value;
+
+    if (senhaDigitada === senhaCorreta) {
+        document.querySelector(".login-screen").style.display = "none";
+        document.querySelector(".app").style.display = "block";
+        iniciarCoracoes();
+        document.getElementById("musica").play();
+    } else {
+        alert("Senha errada 😏");
+    }
+}
+
+function mostrarSurpresa() {
+    document.getElementById("surpresa").style.display = "block";
+}
+
+function iniciarCoracoes() {
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }, 300);
 }
 </script>
 
