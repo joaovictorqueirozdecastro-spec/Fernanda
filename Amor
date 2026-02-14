@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosso App 💖</title>
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    text-align: center;
+    color: #333;
+}
+.container {
+    padding: 20px;
+}
+h1 {
+    font-size: 28px;
+}
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+.gallery img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.message {
+    margin-top: 20px;
+    font-size: 18px;
+}
+button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #e63956;
+}
+.hidden {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>💖 Aplicativo Oficial da Minha Namorada 💖</h1>
+    <p>Usuária exclusiva: Você 😌</p>
+
+    <div class="gallery">
+        <img src="LINK_DA_FOTO1">
+        <img src="LINK_DA_FOTO2">
+        <img src="LINK_DA_FOTO3">
+    </div>
+
+    <div class="message">
+        <p>Desde que você entrou na minha vida, tudo ficou mais leve.</p>
+        <p>Eu amo seu jeito, sua risada, até suas manias.</p>
+        <p>E isso aqui é só uma pequena prova do quanto você é importante pra mim.</p>
+    </div>
+
+    <button onclick="mostrarMensagem()">Clique para desbloquear surpresa 🔓</button>
+
+    <div id="surpresa" class="hidden">
+        <h2>Eu te amo ❤️</h2>
+        <p>Obrigada por existir na minha vida.</p>
+    </div>
+</div>
+
+<script>
+function mostrarMensagem() {
+    document.getElementById("surpresa").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
