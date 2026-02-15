@@ -4,40 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LoveApp 💖</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-
 body{
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(45deg,#000000,#220011);
+  font-family:'Segoe UI', sans-serif;
+  background:linear-gradient(45deg,#000000,#220011);
   color:white;
   overflow-x:hidden;
   text-align:center;
 }
 
-/* VIDEO */
-#bgVideo{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-2;
-  filter:brightness(0.5);
-}
-
-/* OVERLAY */
-.overlay{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle at center, rgba(255,0,100,0.2), rgba(0,0,0,0.8));
-  z-index:-1;
-}
-
-/* LOGIN ESTÉTICO */
+/* LOGIN */
 .login-screen{
   position:fixed;
   width:100%;
@@ -48,52 +25,25 @@ body{
   align-items:center;
   gap:15px;
   z-index:10;
-  opacity:0;
-  transform:scale(0.95);
-  transition:opacity 0.6s, transform 0.6s;
-  background: linear-gradient(135deg, #220011, #550033);
+  background: linear-gradient(135deg,#220011,#550033);
   overflow:hidden;
 }
-.login-screen.show{
-  opacity:1;
-  transform:scale(1);
-}
-
-/* partículas leves no login */
-.login-screen::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  animation: moveParticles 10s linear infinite;
-  pointer-events:none;
-}
-
-@keyframes moveParticles{
-  0%{background-position:0 0;}
-  100%{background-position:100px 100px;}
-}
-
 .login-screen h2{
   color:#ffb6c1;
   text-shadow:0 0 10px #ff4d88;
 }
-
 input{
-  padding:10px;
+  padding:12px;
   border-radius:12px;
   border:none;
   text-align:center;
   outline:none;
   background:rgba(255,255,255,0.1);
   color:white;
-  box-shadow:0 0 10px rgba(255,0,100,0.4);
+  width:70%;
+  max-width:300px;
 }
-
 input::placeholder{color:rgba(255,255,255,0.7);}
-
 button{
   padding:12px 18px;
   border:none;
@@ -102,46 +52,55 @@ button{
   color:white;
   font-weight:bold;
   cursor:pointer;
-  transition:0.3s;
   box-shadow:0 0 15px rgba(255,0,100,0.6);
+  transition:0.3s;
 }
-
 button:hover{
-  transform:scale(1.1);
+  transform:scale(1.05);
   box-shadow:0 0 25px rgba(255,0,150,1);
 }
 
 /* APP */
 .app{
   display:none;
-  padding:20px;
+  padding:15px;
   min-height:100vh;
-  animation:fadeIn 2s ease forwards;
   position:relative;
   z-index:1;
 }
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
+#bgVideo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+  filter:brightness(0.5);
+}
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:radial-gradient(circle at center, rgba(255,0,100,0.2), rgba(0,0,0,0.8));
+  z-index:-1;
 }
 
 /* CONTADOR */
 .contador{
   margin:15px 0;
-  font-size:18px;
+  font-size:16px;
   opacity:0.9;
 }
 
 /* SLIDESHOW */
 .slideshow{
-  margin-top:20px;
-  border-radius:20px;
+  margin-top:15px;
+  border-radius:15px;
   overflow:hidden;
   position:relative;
-  height:250px;
+  height:200px;
 }
-
 .slideshow img{
   width:100%;
   height:100%;
@@ -149,45 +108,32 @@ button:hover{
   position:absolute;
   opacity:0;
   transition:opacity 1.5s ease;
-  border-radius:20px;
+  border-radius:15px;
 }
-
-.slideshow img.active{
-  opacity:1;
-}
+.slideshow img.active{opacity:1;}
 
 /* CARTA */
 .modalCarta{
   position:fixed;
   width:100%;
   height:100%;
-  background:rgba(0,0,0,0.9);
+  background:rgba(0,0,0,0.95);
   display:none;
   justify-content:center;
   align-items:center;
   z-index:20;
 }
-
 .carta-container{
-  width:85%;
+  width:90%;
   max-width:400px;
-  background: url('papel_antigo.png') no-repeat center/cover;
+  background:#fff8dc;
   color:#333;
-  padding:30px;
-  border-radius:20px;
-  overflow:auto;
+  padding:25px;
+  border-radius:15px;
   position:relative;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
-
-.carta-container::before{
-  content:"✉️";
-  position:absolute;
-  top:10px;
-  left:10px;
-  font-size:24px;
-}
-
-.carta-container #closeCarta{
+#closeCarta{
   position:absolute;
   top:10px;
   right:15px;
@@ -207,9 +153,8 @@ button:hover{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  font-size:26px;
+  font-size:24px;
   text-align:center;
-  animation:fadeIn 2s ease forwards;
   z-index:30;
 }
 
@@ -217,50 +162,44 @@ button:hover{
 .cherry{
   position:fixed;
   top:-20px;
-  font-size:20px;
+  font-size:18px;
   animation:fall linear forwards;
 }
-
 @keyframes fall{
-  to{
-    transform:translateY(100vh);
-    opacity:0;
-  }
+  to{transform:translateY(100vh); opacity:0;}
+}
+
+/* RESPONSIVO */
+@media(max-width:480px){
+  .slideshow{height:150px;}
+  input{width:80%;}
 }
 </style>
 </head>
 <body>
 
-<div class="login-screen show" id="login">
+<div class="login-screen" id="login">
   <h2>🔒 LoveApp Privado</h2>
   <input type="password" id="senha" placeholder="Senha secreta">
   <button onclick="verificarSenha()">Entrar 💕</button>
 </div>
 
 <div class="app" id="app">
-
   <video autoplay muted loop playsinline id="bgVideo">
     <source src="VID-20260214-WA0080.mp4" type="video/mp4">
   </video>
-
   <div class="overlay"></div>
-
   <h1>Você é meu melhor destino 💖</h1>
-
   <div class="contador" id="contador"></div>
-
   <button onclick="tocarMusica()">🎶 Nossa música</button>
   <button onclick="abrirCarta()">💌 Abrir Cartinha</button>
-
   <div class="slideshow">
     <img src="IMG-20260117-WA0007.jpg" class="slide active">
     <img src="IMG-20260117-WA0010.jpg" class="slide">
     <img src="IMG-20260130-WA0087.jpg" class="slide">
   </div>
-
   <br>
   <button onclick="finalSurpresa()">Última surpresa 💍</button>
-
 </div>
 
 <div class="modalCarta" id="modalCarta">
@@ -286,7 +225,7 @@ function verificarSenha(){
   if(document.getElementById("senha").value==="291125"){
     document.getElementById("login").style.display="none";
     document.getElementById("app").style.display="block";
-    tocarMusica(); // música começa ao entrar
+    tocarMusica();
     iniciarContador();
     iniciarSlide();
     iniciarCerejas();
