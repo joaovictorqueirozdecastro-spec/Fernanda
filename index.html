@@ -105,6 +105,8 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
   cursor:pointer;
 }
 .album img:hover{ transform:scale(1.05); }
+
+/* Classes de tamanho corrigidas (sem acento para bater com o HTML abaixo) */
 .album img.pequena{width:100px; height:100px;}
 .album img.media{width:150px; height:150px;}
 .album img.grande{width:250px; height:250px;}
@@ -173,27 +175,38 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 <!-- APP -->
 <div class="app" id="app">
 
-  <!-- ÁLBUM DE FOTOS DINÂMICO -->
+  <!-- ÁLBUM DE FOTOS CORRIGIDO -->
   <div class="album">
+    <!-- Grupo 1 -->
     <img src="IMG-20260117-WA0007.jpg" class="grande">
-    <img src="IMG-20260117-WA0010.jpg" class="média">
+    <img src="IMG-20260117-WA0010.jpg" class="media">
     <img src="IMG-20260117-WA0009.jpg" class="pequena">
     
+    <!-- Grupo 2 -->
     <img src="IMG-20260117-WA0011.jpg" class="grande">
-    <img src="IMG-20260130-WA0087.jpg" class="média">
+    <img src="IMG-20260130-WA0087.jpg" class="media">
     <img src="IMG-20260130-WA0088.jpg" class="pequena">
     
+    <!-- Grupo 3 -->
     <img src="IMG-20260207-WA0098.jpg" class="grande">
-    <img src="IMG-20260213-WA0017.jpg" class="média">
+    <img src="IMG-20260213-WA0017.jpg" class="media">
     <img src="IMG-20260131-WA0009.jpg" class="pequena">
 
+    <!-- Grupo 4 -->
     <img src="IMG-20260214-WA0077.jpg" class="grande">
-    <img src="IMG-20260214-WA0073.jpg" class="média">
-    <img src="IMG-20260214-WA0071.jpg" class="média">
+    <img src="IMG-20260214-WA0073.jpg" class="media">
+    <img src="IMG-20260214-WA0071.jpg" class="media">
 
+    <!-- Grupo 5 -->
     <img src="IMG-20260214-WA0076.jpg" class="pequena">
     <img src="IMG-20260214-WA0078.jpg" class="pequena">
-    <img src="IMG-20260214-WA0075.jpg" class="média">
+    <img src="IMG-20260214-WA0075.jpg" class="media">
+    
+    <!-- Adicionando fotos extras que estavam na sua lista do Github -->
+    <img src="IMG-20260117-WA0008.jpg" class="media">
+    <img src="IMG-20260202-WA0009.jpg" class="pequena">
+    <img src="IMG-20260203-WA0027.jpg" class="grande">
+    <img src="IMG-20260203-WA0044.jpg" class="media">
   </div>
 
   <!-- CARTA ABERTA -->
@@ -283,5 +296,4 @@ function gerarQuiz(){
 </script>
 
 </body>
-  </html>
-      
+</html>
