@@ -1,373 +1,346 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Nosso Universo ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LoveApp 💖</title>
+
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-margin:0;
 font-family: 'Segoe UI', sans-serif;
-background: linear-gradient(135deg,#0f0f1a,#1c1c2e);
+background: linear-gradient(45deg,#000000,#220011);
 color:white;
+overflow-x:hidden;
 text-align:center;
 }
 
-header{
+/* VIDEO */
+#bgVideo{
 position:fixed;
 top:0;
+left:0;
 width:100%;
-background:#111;
-padding:15px;
-font-size:18px;
-z-index:1000;
-}
-
-nav{
-position:fixed;
-bottom:0;
-width:100%;
-background:#111;
-display:flex;
-justify-content:space-around;
-padding:10px 0;
-}
-
-nav button{
-background:none;
-border:none;
-color:white;
-font-size:14px;
-}
-
-.section{
-padding:80px 20px 80px;
-display:none;
-animation:fade .4s ease;
-}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(10px)}
-to{opacity:1; transform:translateY(0)}
-}
-
-button.main{
-background:#ff4d88;
-border:none;
-padding:10px 20px;
-border-radius:20px;
-color:white;
-margin:5px;
-}
-
-.card{
-background:#1f1f35;
-padding:20px;
-border-radius:20px;
-margin:10px auto;
-max-width:400px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:5px;
-}
-
-.grid img{
-width:100%;
-border-radius:10px;
-cursor:pointer;
-}
-
-#lightbox{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.9);
-display:none;
-justify-content:center;
-align-items:center;
-}
-
-#lightbox img{max-width:90%}
-
-.memory-card{
-width:70px;height:70px;
-background:#333;
-display:inline-flex;
-align-items:center;
-justify-content:center;
-margin:5px;
-font-size:25px;
-border-radius:10px;
-cursor:pointer;
-}
-
-.progress{
-width:80%;
-height:10px;
-background:#333;
-border-radius:10px;
-margin:10px auto;
-}
-
-.progress-bar{
 height:100%;
-background:#ff4d88;
-width:0%;
-border-radius:10px;
+object-fit:cover;
+z-index:-2;
+filter:brightness(0.5);
 }
 
-.hidden{display:none}
+/* OVERLAY */
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:radial-gradient(circle at center, rgba(255,0,100,0.2), rgba(0,0,0,0.8));
+z-index:-1;
+}
+
+/* LOGIN */
+.login-screen{
+position:fixed;
+width:100%;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:15px;
+z-index:10;
+}
+
+.login-screen h2{
+color:white;
+}
 
 input{
 padding:10px;
 border-radius:10px;
 border:none;
+text-align:center;
 }
 
+button{
+padding:12px 18px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ff4d88,#ff0066);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 0 15px rgba(255,0,100,0.6);
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 25px rgba(255,0,150,1);
+}
+
+/* APP */
+.app{
+display:none;
+padding:20px;
+min-height:100vh;
+animation:fadeIn 2s ease forwards;
+position:relative;
+z-index:1;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* CONTADOR */
+.contador{
+margin:15px 0;
+font-size:18px;
+opacity:0.9;
+}
+
+/* SLIDESHOW */
+.slideshow{
+margin-top:20px;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+height:250px;
+}
+
+.slideshow img{
+width:100%;
+height:100%;
+object-fit:cover;
+position:absolute;
+opacity:0;
+transition:opacity 1.5s ease;
+border-radius:20px;
+}
+
+.slideshow img.active{
+opacity:1;
+}
+
+/* GALERIA */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:10px;
+margin-top:20px;
+}
+
+.gallery img{
+width:100%;
+border-radius:15px;
+opacity:0;
+transform:translateY(30px);
+transition:1s;
+}
+
+.gallery img.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* CARTA */
+.modalCarta{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:20;
+}
+
+.carta-container{
+width:85%;
+max-width:350px;
+background:white;
+color:#333;
+padding:20px;
+border-radius:20px;
+overflow:auto;
+}
+
+/* FINAL */
+.final{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:26px;
+text-align:center;
+animation:fadeIn 2s ease forwards;
+z-index:30;
+}
+
+/* CEREJAS */
+.cherry{
+position:fixed;
+top:-20px;
+font-size:20px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh);
+opacity:0;
+}
+}
 </style>
 </head>
 <body>
 
-<header>Nosso Universo 💖</header>
+<!-- VÍDEO DE FUNDO JÁ NO LOGIN -->
+<video autoplay muted loop playsinline id="bgVideo">
+<source src="VID-20260214-WA0080.mp4" type="video/mp4">
+</video>
 
-<!-- LOGIN -->
-<div id="login" class="section" style="display:block;">
-<h2>Digite a senha</h2>
-<input type="password" id="senha">
-<br><br>
-<button class="main" onclick="entrar()">Entrar</button>
-<p id="erro"></p>
+<div class="overlay"></div>
+
+<div class="login-screen" id="login">
+<h2>Bem vinda meu amor no seu lugarzinho 💖 qual a senha?</h2>
+<input type="password" id="senha" placeholder="Senha secreta">
+<button onclick="verificarSenha()">Entrar 💕</button>
 </div>
 
-<div id="app" class="hidden">
+<div class="app" id="app">
 
-<!-- INICIO -->
-<div id="inicio" class="section">
-<h2>Nosso Tempo ⏳</h2>
-<p id="contador"></p>
-<button class="main" onclick="musica.play()">🎵 Música</button>
-<audio id="musica" src="musica.mp3"></audio>
+<h1>Você é meu melhor destino 💖</h1>
+
+<div class="contador" id="contador"></div>
+
+<button onclick="tocarMusica()">🎶 Nossa música</button>
+<button onclick="abrirCarta()">💌 Abrir Cartinha</button>
+
+<!-- SLIDESHOW -->
+<div class="slideshow">
+<img src="IMG-20260117-WA0007.jpg" class="slide active">
+<img src="IMG-20260117-WA0010.jpg" class="slide">
+<img src="IMG-20260130-WA0087.jpg" class="slide">
+<img src="IMG-20260207-WA0098.jpg" class="slide">
+<img src="IMG-20260213-WA0017.jpg" class="slide">
 </div>
 
-<!-- GALERIA -->
-<div id="galeria" class="section">
-<h2>Nossos Momentos 📸</h2>
-<div class="grid">
-<img src="https://picsum.photos/300?1" onclick="abrir(this.src)">
-<img src="https://picsum.photos/300?2" onclick="abrir(this.src)">
-<img src="https://picsum.photos/300?3" onclick="abrir(this.src)">
-<img src="https://picsum.photos/300?4" onclick="abrir(this.src)">
-<img src="https://picsum.photos/300?5" onclick="abrir(this.src)">
-<img src="https://picsum.photos/300?6" onclick="abrir(this.src)">
+<!-- GALERIA COMPLETA -->
+<div class="gallery">
+<img src="IMG-20260214-WA0073.jpg">
+<img src="IMG-20260214-WA0076.jpg">
+<img src="IMG-20260214-WA0077.jpg">
+<img src="IMG-20260214-WA0078.jpg">
+<img src="IMG-20260207-WA0098.jpg">
+<img src="IMG-20260213-WA0017.jpg">
+</div>
+
+<br>
+<button onclick="finalSurpresa()">Última surpresa 💍</button>
+
+</div>
+
+<div class="modalCarta" id="modalCarta">
+<div class="carta-container">
+<p id="textoDigitando"></p>
 </div>
 </div>
 
-<div id="lightbox" onclick="fechar()">
-<img id="imgGrande">
+<div class="final" id="final">
+Eu escolheria você em todas as vidas.<br><br>
+Para sempre nós. 💞
 </div>
 
-<!-- QUIZ -->
-<div id="quiz" class="section">
-<h2>Você me conhece? 😏</h2>
-<div id="pergunta"></div>
-<div id="respostas"></div>
-<p id="resultado"></p>
-</div>
-
-<!-- CARTAS -->
-<div id="cartas" class="section">
-<h2>Cartas 💌</h2>
-<div id="cartasConteudo"></div>
-</div>
-
-<!-- MEMORIA -->
-<div id="memoria" class="section">
-<h2>Memória 🧠</h2>
-<p>Tentativas: <span id="tentativas">0</span></p>
-<div id="memoryBoard"></div>
-</div>
-
-<!-- PET -->
-<div id="pet" class="section">
-<h2>Nosso Pet 🐰</h2>
-<p id="petHumor"></p>
-<div class="progress"><div class="progress-bar" id="petBar"></div></div>
-<button class="main" onclick="alimentar()">🍓 Comida</button>
-<button class="main" onclick="carinho()">❤️ Carinho</button>
-</div>
-
-<!-- SEGREDO -->
-<div id="segredo" class="section">
-<h2>Área Ultra Secreta 🔐</h2>
-<p>Se você chegou aqui...</p>
-<h3>Eu escolheria você mil vezes ❤️</h3>
-</div>
-
-<nav>
-<button onclick="mostrar('inicio')">Início</button>
-<button onclick="mostrar('galeria')">Galeria</button>
-<button onclick="mostrar('quiz')">Quiz</button>
-<button onclick="mostrar('cartas')">Cartas</button>
-<button onclick="mostrar('memoria')">Memória</button>
-<button onclick="mostrar('pet')">Pet</button>
-<button onclick="mostrar('segredo')">Segredo</button>
-</nav>
-
-</div>
+<audio id="musica" loop>
+<source src="BK_-_Planos parte. Luccas Carlo.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
-let pontos=0;
-let inicioDate=new Date("2023-01-01");
+const texto=`Oi, amor... eu escolheria você todos os dias, em todas as versões da minha vida. 💖`;
 
-function entrar(){
-if(document.getElementById("senha").value==="1234"){
+function verificarSenha(){
+if(document.getElementById("senha").value==="291125"){
 document.getElementById("login").style.display="none";
-document.getElementById("app").classList.remove("hidden");
-mostrar("inicio");
+document.getElementById("app").style.display="block";
+
+document.getElementById("musica").play(); // toca música automaticamente
+
+iniciarContador();
+iniciarGaleria();
+iniciarSlide();
+iniciarCerejas();
 }else{
-document.getElementById("erro").innerText="Senha errada!";
+alert("Senha errada 😏");
 }
 }
 
-setInterval(()=>{
-let agora=new Date();
-let diff=agora-inicioDate;
-let dias=Math.floor(diff/(1000*60*60*24));
+function tocarMusica(){
+document.getElementById("musica").play();
+}
+
+function iniciarContador(){
+const inicio=new Date("2025-11-29");
+const hoje=new Date();
+const diff=Math.floor((hoje-inicio)/(1000*60*60*24));
 document.getElementById("contador").innerText=
-"Estamos juntos há "+dias+" dias ❤️";
-},1000);
-
-function mostrar(sec){
-document.querySelectorAll(".section").forEach(s=>s.style.display="none");
-document.getElementById(sec).style.display="block";
+"Estamos juntos há "+diff+" dias 💞";
 }
 
-function abrir(src){
-document.getElementById("imgGrande").src=src;
-document.getElementById("lightbox").style.display="flex";
-}
-function fechar(){
-document.getElementById("lightbox").style.display="none";
-}
-
-/* QUIZ 20 perguntas */
-const perguntas=[
-{p:"Qual minha cor favorita?",r:["Azul","Preto","Rosa"],c:1},
-{p:"Eu sou romântico?",r:["Muito","Nada","Mais ou menos"],c:0},
-{p:"Quem ama mais?",r:["Você","Eu","Empate"],c:1},
-{p:"Eu tenho ciúmes?",r:["Sim","Não","Pouco"],c:2},
-{p:"Meu maior medo?",r:["Te perder","Altura","Escuro"],c:0},
-{p:"Eu sou engraçado?",r:["Muito","Não","Às vezes"],c:0},
-{p:"Eu sou paciente?",r:["Sim","Não","Depende"],c:2},
-{p:"Minha comida favorita?",r:["Pizza","Hambúrguer","Lasanha"],c:0},
-{p:"Eu gosto de carinho?",r:["Sim","Não","Só às vezes"],c:0},
-{p:"Eu dormiria cedo?",r:["Sim","Nunca","Depende"],c:2},
-{p:"Eu sou protetor?",r:["Sim","Não","Pouco"],c:0},
-{p:"Eu gosto de surpresas?",r:["Sim","Não","Depende"],c:0},
-{p:"Eu fico bravo fácil?",r:["Sim","Não","Raro"],c:2},
-{p:"Eu sou fiel?",r:["Sempre","Não","Talvez"],c:0},
-{p:"Eu sou ciumento?",r:["Muito","Nada","Pouco"],c:2},
-{p:"Eu sou carinhoso?",r:["Sim","Não","Às vezes"],c:0},
-{p:"Eu penso no futuro?",r:["Sim","Não","Às vezes"],c:0},
-{p:"Eu sou intenso?",r:["Sim","Não","Depende"],c:0},
-{p:"Eu sou bobo às vezes?",r:["Sim","Nunca","Pouco"],c:0},
-{p:"Eu te amo?",r:["Muito","Nada","Mais ou menos"],c:0},
-];
-
-let atual=0;
-
-function carregarQuiz(){
-if(atual>=perguntas.length){
-document.getElementById("resultado").innerText=
-"Pontuação: "+pontos+"/20";
-if(pontos>=15) desbloquearCartas();
-return;
-}
-let q=perguntas[atual];
-document.getElementById("pergunta").innerText=q.p;
-let html="";
-q.r.forEach((resp,i)=>{
-html+=`<button class="main" onclick="responder(${i})">${resp}</button>`;
+function iniciarGaleria(){
+const imgs=document.querySelectorAll(".gallery img");
+imgs.forEach((img,i)=>{
+setTimeout(()=>{img.classList.add("show");},i*400);
 });
-document.getElementById("respostas").innerHTML=html;
 }
 
-function responder(i){
-if(i===perguntas[atual].c)pontos++;
-atual++;
-carregarQuiz();
-}
-
-carregarQuiz();
-
-/* CARTAS */
-function desbloquearCartas(){
-document.getElementById("cartasConteudo").innerHTML=
-`<div class="card">Você me conhece de verdade ❤️</div>
-<div class="card">Eu escolheria você todos os dias.</div>`;
-}
-
-/* MEMORIA */
-let emojis=["❤️","❤️","😍","😍","🥰","🥰"];
-emojis.sort(()=>0.5-Math.random());
-let first=null;
-let lock=false;
-let tentativas=0;
-
-emojis.forEach(e=>{
-let div=document.createElement("div");
-div.className="memory-card";
-div.innerText="?";
-div.onclick=()=>{
-if(lock||div.innerText!=="?")return;
-div.innerText=e;
-if(!first)first=div;
-else{
-tentativas++;
-document.getElementById("tentativas").innerText=tentativas;
-if(first.innerText===div.innerText){
-first=null;
-}else{
-lock=true;
-setTimeout(()=>{
-first.innerText="?";
-div.innerText="?";
-first=null;
-lock=false;
-},800);
-}
-}
-};
-document.getElementById("memoryBoard").appendChild(div);
-});
-
-/* PET */
-let energia=70;
-
-function alimentar(){energia+=10;updatePet();}
-function carinho(){energia+=5;updatePet();}
-
-function updatePet(){
-if(energia>100)energia=100;
-document.getElementById("petBar").style.width=energia+"%";
-if(energia>70)document.getElementById("petHumor").innerText="Ele está feliz 😍";
-else if(energia>40)document.getElementById("petHumor").innerText="Ele quer atenção 🥺";
-else document.getElementById("petHumor").innerText="Ele está triste 😢";
-}
-
+function iniciarCerejas(){
 setInterval(()=>{
-energia-=5;
-if(energia<0)energia=0;
-updatePet();
-},5000);
+const cherry=document.createElement("div");
+cherry.classList.add("cherry");
+cherry.innerHTML="🍒";
+cherry.style.left=Math.random()*100+"vw";
+cherry.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(cherry);
+setTimeout(()=>cherry.remove(),6000);
+},600);
+}
 
-updatePet();
+function abrirCarta(){
+document.getElementById("modalCarta").style.display="flex";
+let i=0;
+const el=document.getElementById("textoDigitando");
+el.innerHTML="";
+function digitar(){
+if(i<texto.length){
+el.innerHTML+=texto.charAt(i);
+i++;
+setTimeout(digitar,30);
+}}
+digitar();
+}
+
+function iniciarSlide(){
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+slides[index].classList.remove("active");
+index=(index+1)%slides.length;
+slides[index].classList.add("active");
+},4000);
+}
+
+function finalSurpresa(){
+document.getElementById("final").style.display="flex";
+}
 
 </script>
+
 </body>
 </html>
