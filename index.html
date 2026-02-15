@@ -45,4 +45,283 @@ height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
-align
+align-items:center;
+gap:15px;
+}
+
+input{
+padding:10px;
+border-radius:10px;
+border:none;
+text-align:center;
+}
+
+button{
+padding:12px 18px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ff4d88,#ff0066);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 0 15px rgba(255,0,100,0.6);
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 25px rgba(255,0,150,1);
+}
+
+/* APP */
+.app{
+display:none;
+padding:20px;
+animation:fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+/* CONTADOR */
+.contador{
+margin:15px 0;
+font-size:18px;
+opacity:0.9;
+}
+
+/* SLIDESHOW */
+.slideshow{
+margin-top:20px;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+}
+
+.slideshow img{
+width:100%;
+position:absolute;
+opacity:0;
+transition:opacity 1.5s ease;
+border-radius:20px;
+}
+
+.slideshow img.active{
+opacity:1;
+}
+
+/* GALERIA */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:10px;
+margin-top:20px;
+}
+
+.gallery img{
+width:100%;
+border-radius:15px;
+opacity:0;
+transform:translateY(30px);
+transition:1s;
+}
+
+.gallery img.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* CARTA */
+.modalCarta{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:20;
+}
+
+.carta-container{
+width:85%;
+max-width:350px;
+background:white;
+color:#333;
+padding:20px;
+border-radius:20px;
+overflow:auto;
+}
+
+/* FINAL */
+.final{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:26px;
+text-align:center;
+animation:fadeIn 2s ease forwards;
+z-index:30;
+}
+
+/* CEREJAS */
+.cherry{
+position:fixed;
+top:-20px;
+font-size:20px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh);
+opacity:0;
+}
+}
+</style>
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="bgVideo">
+<source src="VID-20260214-WA0080.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<div class="login-screen" id="login">
+<h2>🔒 LoveApp Privado</h2>
+<input type="password" id="senha" placeholder="Senha secreta">
+<button onclick="verificarSenha()">Entrar 💕</button>
+</div>
+
+<div class="app" id="app">
+
+<h1>Você é meu melhor destino 💖</h1>
+
+<div class="contador" id="contador"></div>
+
+<button onclick="tocarMusica()">🎶 Nossa música</button>
+<button onclick="abrirCarta()">💌 Abrir Cartinha</button>
+
+<div class="slideshow">
+<img src="IMG-20260117-WA0007.jpg" class="slide active">
+<img src="IMG-20260117-WA0010.jpg" class="slide">
+<img src="IMG-20260130-WA0087.jpg" class="slide">
+</div>
+
+<div class="gallery">
+<img src="IMG-20260207-WA0098.jpg">
+<img src="IMG-20260213-WA0017.jpg">
+<img src="IMG-20260214-WA0073.jpg">
+<img src="IMG-20260214-WA0076.jpg">
+<img src="IMG-20260214-WA0077.jpg">
+<img src="IMG-20260214-WA0078.jpg">
+</div>
+
+<br>
+<button onclick="finalSurpresa()">Última surpresa 💍</button>
+
+</div>
+
+<div class="modalCarta" id="modalCarta">
+<div class="carta-container">
+<p id="textoDigitando"></p>
+</div>
+</div>
+
+<div class="final" id="final">
+Eu escolheria você em todas as vidas.<br><br>
+Para sempre nós. 💞
+</div>
+
+<audio id="musica" loop>
+<source src="BK_-_Planos parte. Luccas Carlo.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+const texto=`Oi, amor... eu escolheria você todos os dias, em todas as versões da minha vida. 💖`;
+
+function verificarSenha(){
+if(document.getElementById("senha").value==="291125"){
+document.getElementById("login").style.display="none";
+document.getElementById("app").style.display="block";
+iniciarContador();
+iniciarGaleria();
+iniciarSlide();
+iniciarCerejas();
+}else{
+alert("Senha errada 😏");
+}
+}
+
+function tocarMusica(){
+document.getElementById("musica").play();
+}
+
+function iniciarContador(){
+const inicio=new Date("2025-11-29");
+const hoje=new Date();
+const diff=Math.floor((hoje-inicio)/(1000*60*60*24));
+document.getElementById("contador").innerText=
+"Estamos juntos há "+diff+" dias 💞";
+}
+
+function iniciarGaleria(){
+const imgs=document.querySelectorAll(".gallery img");
+imgs.forEach((img,i)=>{
+setTimeout(()=>{img.classList.add("show");},i*400);
+});
+}
+
+function iniciarCerejas(){
+setInterval(()=>{
+const cherry=document.createElement("div");
+cherry.classList.add("cherry");
+cherry.innerHTML="🍒";
+cherry.style.left=Math.random()*100+"vw";
+cherry.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(cherry);
+setTimeout(()=>cherry.remove(),6000);
+},600);
+}
+
+function abrirCarta(){
+document.getElementById("modalCarta").style.display="flex";
+let i=0;
+const el=document.getElementById("textoDigitando");
+el.innerHTML="";
+function digitar(){
+if(i<texto.length){
+el.innerHTML+=texto.charAt(i);
+i++;
+setTimeout(digitar,30);
+}}
+digitar();
+}
+
+function iniciarSlide(){
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+slides[index].classList.remove("active");
+index=(index+1)%slides.length;
+slides[index].classList.add("active");
+},4000);
+}
+
+function finalSurpresa(){
+document.getElementById("final").style.display="flex";
+}
+
+</script>
+
+</body>
+  </html>
