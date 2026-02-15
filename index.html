@@ -3,281 +3,169 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LoveApp 💖</title>
+<title>Bem-vinda ❤️‍🩹</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-  font-family:'Segoe UI', sans-serif;
-  background:linear-gradient(45deg,#000000,#220011);
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(45deg,#000000,#220011);
   color:white;
   overflow-x:hidden;
   text-align:center;
+  padding:20px;
 }
 
-/* LOGIN */
-.login-screen{
-  position:fixed;
-  width:100%;
-  height:100vh;
+/* TÍTULO */
+h1{
+  font-size:2.2em;
+  margin-bottom:20px;
+  color:#ff6699;
+  text-shadow:0 0 10px #ff6699;
+}
+
+/* ÁLBUM DE FOTOS */
+.album{
   display:flex;
-  flex-direction:column;
+  flex-wrap:wrap;
+  gap:10px;
   justify-content:center;
-  align-items:center;
-  gap:15px;
-  z-index:10;
-  background: linear-gradient(135deg,#220011,#550033);
-  overflow:hidden;
+  margin-bottom:30px;
 }
-.login-screen h2{
-  color:#ffb6c1;
-  text-shadow:0 0 10px #ff4d88;
-}
-input{
-  padding:12px;
-  border-radius:12px;
-  border:none;
-  text-align:center;
-  outline:none;
-  background:rgba(255,255,255,0.1);
-  color:white;
-  width:70%;
-  max-width:300px;
-}
-input::placeholder{color:rgba(255,255,255,0.7);}
-button{
-  padding:12px 18px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#ff4d88,#ff0066);
-  color:white;
-  font-weight:bold;
+
+.album img{
+  border-radius:15px;
+  object-fit:cover;
+  transition:transform 0.3s;
   cursor:pointer;
-  box-shadow:0 0 15px rgba(255,0,100,0.6);
-  transition:0.3s;
 }
-button:hover{
+
+.album img:hover{
   transform:scale(1.05);
-  box-shadow:0 0 25px rgba(255,0,150,1);
 }
 
-/* APP */
-.app{
-  display:none;
-  padding:15px;
-  min-height:100vh;
-  position:relative;
-  z-index:1;
-}
-#bgVideo{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-2;
-  filter:brightness(0.5);
-}
-.overlay{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle at center, rgba(255,0,100,0.2), rgba(0,0,0,0.8));
-  z-index:-1;
-}
+/* Diferentes tamanhos */
+.album img.pequena{width:100px; height:100px;}
+.album img.media{width:150px; height:150px;}
+.album img.grande{width:250px; height:250px;}
 
-/* CONTADOR */
-.contador{
-  margin:15px 0;
-  font-size:16px;
-  opacity:0.9;
-}
-
-/* SLIDESHOW */
-.slideshow{
-  margin-top:15px;
-  border-radius:15px;
-  overflow:hidden;
-  position:relative;
-  height:200px;
-}
-.slideshow img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  position:absolute;
-  opacity:0;
-  transition:opacity 1.5s ease;
-  border-radius:15px;
-}
-.slideshow img.active{opacity:1;}
-
-/* CARTA */
-.modalCarta{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.95);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:20;
-}
-.carta-container{
-  width:90%;
-  max-width:400px;
-  background:#fff8dc;
+/* CARTA ABERTA */
+.carta{
+  background: #f5e1c0;
   color:#333;
   padding:25px;
   border-radius:15px;
-  position:relative;
+  max-width:600px;
+  margin:0 auto 40px auto;
   box-shadow:0 0 20px rgba(0,0,0,0.5);
+  text-align:left;
+  font-family: 'Georgia', serif;
+  line-height:1.5em;
+  position:relative;
 }
-#closeCarta{
+
+.carta::before{
+  content:"💌";
   position:absolute;
-  top:10px;
-  right:15px;
-  font-size:22px;
+  top:-15px;
+  left:-15px;
+  font-size:2em;
+}
+
+/* QUIZ */
+.quiz{
+  max-width:600px;
+  margin:0 auto 50px auto;
+  text-align:left;
+  background: rgba(255,255,255,0.1);
+  padding:20px;
+  border-radius:15px;
+}
+
+.quiz h2{
+  color:#ff99cc;
+  margin-bottom:15px;
+}
+
+.quiz .pergunta{
+  margin-bottom:15px;
+}
+
+.quiz button{
+  margin:5px 5px 0 0;
+  padding:8px 12px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(45deg,#ff4d88,#ff0066);
+  color:white;
   cursor:pointer;
-  color:#900;
+  transition:0.3s;
+}
+
+.quiz button:hover{
+  transform:scale(1.05);
+}
+
+#resultado{
+  margin-top:15px;
   font-weight:bold;
-}
-
-/* FINAL */
-.final{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  font-size:24px;
-  text-align:center;
-  z-index:30;
-}
-
-/* CEREJAS */
-.cherry{
-  position:fixed;
-  top:-20px;
-  font-size:18px;
-  animation:fall linear forwards;
-}
-@keyframes fall{
-  to{transform:translateY(100vh); opacity:0;}
-}
-
-/* RESPONSIVO */
-@media(max-width:480px){
-  .slideshow{height:150px;}
-  input{width:80%;}
+  color:#ffccaa;
 }
 </style>
 </head>
 <body>
 
-<div class="login-screen" id="login">
-  <h2>Bem Vinda ❤️‍🩹</h2>
-  <input type="password" id="senha" placeholder="Senha secreta">
-  <button onclick="verificarSenha()">Entrar 💕</button>
+<h1>Bem-vinda ❤️‍🩹</h1>
+
+<!-- ÁLBUM DE FOTOS -->
+<div class="album">
+  <img src="IMG-20260207-WA0098.jpg" class="grande">
+  <img src="IMG-20260213-WA0017.jpg" class="media">
+  <img src="IMG-20260214-WA0073.jpg" class="media">
+  <img src="IMG-20260214-WA0076.jpg" class="pequena">
+  <img src="IMG-20260214-WA0077.jpg" class="grande">
+  <img src="IMG-20260214-WA0078.jpg" class="pequena">
 </div>
 
-<div class="app" id="app">
-  <video autoplay muted loop playsinline id="bgVideo">
-    <source src="VID-20260214-WA0080.mp4" type="video/mp4">
-  </video>
-  <div class="overlay"></div>
-  <h1>Você é meu melhor destino 💖</h1>
-  <div class="contador" id="contador"></div>
-  <button onclick="tocarMusica()">🎶 Nossa música</button>
-  <button onclick="abrirCarta()">💌 Abrir Cartinha</button>
-  <div class="slideshow">
-    <img src="IMG-20260117-WA0007.jpg" class="slide active">
-    <img src="IMG-20260117-WA0010.jpg" class="slide">
-    <img src="IMG-20260130-WA0087.jpg" class="slide">
+<!-- CARTA ABERTA -->
+<div class="carta">
+  <p>Oi, amor! 💖<br><br>
+  Eu quero que você saiba que cada momento contigo é único. Te amo todos os dias, em todas as versões da minha vida. Obrigado por ser meu melhor destino. 💌</p>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz">
+  <h2>Quiz do Amor 💞</h2>
+  
+  <div class="pergunta">
+    <p>1. Qual é minha cor favorita?</p>
+    <button onclick="verificar(this,'Rosa')">Rosa</button>
+    <button onclick="verificar(this,'Azul')">Azul</button>
+    <button onclick="verificar(this,'Verde')">Verde</button>
   </div>
-  <br>
-  <button onclick="finalSurpresa()">Última surpresa 💍</button>
-</div>
 
-<div class="modalCarta" id="modalCarta">
-  <div class="carta-container">
-    <span id="closeCarta" onclick="fecharCarta()">✖</span>
-    <p>Oi, amor... eu escolheria você todos os dias, em todas as versões da minha vida. 💖</p>
+  <div class="pergunta">
+    <p>2. Qual é meu doce favorito?</p>
+    <button onclick="verificar(this,'Chocolate')">Chocolate</button>
+    <button onclick="verificar(this,'Bala')">Bala</button>
+    <button onclick="verificar(this,'Sorvete')">Sorvete</button>
   </div>
-</div>
 
-<div class="final" id="final">
-  Eu escolheria você em todas as vidas.<br><br>
-  Para sempre nós. 💞
+  <div id="resultado"></div>
 </div>
-
-<audio id="musica" loop>
-  <source src="BK_-_Planos parte. Luccas Carlo.mp3" type="audio/mpeg">
-</audio>
 
 <script>
-function verificarSenha(){
-  if(document.getElementById("senha").value==="291125"){
-    document.getElementById("login").style.display="none";
-    document.getElementById("app").style.display="block";
-    tocarMusica();
-    iniciarContador();
-    iniciarSlide();
-    iniciarCerejas();
-    abrirCarta(); // abre a carta imediatamente
+// QUIZ
+let acertos = 0;
+function verificar(botao,resposta){
+  const respostasCorretas = ['Rosa','Chocolate'];
+  if(respostasCorretas.includes(resposta)){
+    acertos++;
+    botao.style.background = 'green';
   } else {
-    alert("Senha errada 😏");
+    botao.style.background = 'red';
   }
-}
-
-function tocarMusica(){
-  const music=document.getElementById("musica");
-  if(music.paused) music.play();
-}
-
-function iniciarContador(){
-  const inicio=new Date("2025-11-29");
-  const hoje=new Date();
-  const diff=Math.floor((hoje-inicio)/(1000*60*60*24));
-  document.getElementById("contador").innerText=
-  "Estamos juntos há "+diff+" dias 💞";
-}
-
-function iniciarSlide(){
-  let slides=document.querySelectorAll(".slide");
-  let index=0;
-  setInterval(()=>{
-    slides.forEach(s=>s.classList.remove("active"));
-    slides[index].classList.add("active");
-    index=(index+1)%slides.length;
-  },3000);
-}
-
-function iniciarCerejas(){
-  setInterval(()=>{
-    const cherry=document.createElement("div");
-    cherry.classList.add("cherry");
-    cherry.innerHTML="🍒";
-    cherry.style.left=Math.random()*100+"vw";
-    cherry.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(cherry);
-    setTimeout(()=>cherry.remove(),6000);
-  },600);
-}
-
-function abrirCarta(){
-  document.getElementById("modalCarta").style.display="flex";
-}
-
-function fecharCarta(){
-  document.getElementById("modalCarta").style.display="none";
-}
-
-function finalSurpresa(){
-  document.getElementById("final").style.display="flex";
+  botao.disabled = true;
+  document.getElementById('resultado').innerText = "Acertos: "+acertos+"";
 }
 </script>
 
