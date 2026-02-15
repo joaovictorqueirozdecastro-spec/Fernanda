@@ -15,50 +15,62 @@ body{
   color:white;
 }
 
-/* LOGIN */
+/* LOGIN CENTRALIZADO */
 .login-screen{
   position:fixed;
   top:0; left:0;
   width:100%;
   height:100vh;
   display:flex;
-  justify-content:flex-end;
-  align-items:center;
+  justify-content:center; /* Centraliza verticalmente */
+  align-items:center;     /* Centraliza horizontalmente */
   flex-direction:column;
-  padding-bottom:120px;
   gap:15px;
   z-index:10;
-  text-shadow:0 0 10px black;
+}
+
+.login-screen h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+  color: #ff6699;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.9), 0 0 10px #ff6699;
 }
 
 .login-screen input{
-  padding:10px;
-  border-radius:10px;
-  border:none;
+  padding:12px;
+  border-radius:12px;
+  border: 1px solid rgba(255,255,255,0.3);
   text-align:center;
-  margin-bottom:10px;
+  width: 250px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .login-screen button{
-  padding:12px 18px;
+  padding:14px 25px;
   border:none;
   border-radius:30px;
   background:linear-gradient(45deg,#ff4d88,#ff0066);
   color:white;
   font-weight:bold;
   cursor:pointer;
-  box-shadow:0 0 15px rgba(255,0,100,0.6);
+  box-shadow:0 0 20px rgba(255,0,100,0.5);
+  transition: transform 0.2s;
 }
 
-/* IMAGEM DE LOGIN (Substituiu o Vídeo) */
+.login-screen button:active {
+  transform: scale(0.95);
+}
+
+/* IMAGEM DE FUNDO */
 #bgLoginImage{
   position:fixed;
   top:0; left:0;
   width:100%;
   height:100%;
-  object-fit:cover; /* Garante que a foto preencha a tela sem distorcer */
+  object-fit:cover;
   z-index:-2;
-  filter:brightness(0.5); /* Deixa a foto um pouco mais escura para o texto brilhar */
+  filter:brightness(0.6); /* Ajustado para dar destaque ao login */
 }
 
 /* FUNDO LUZES */
@@ -83,11 +95,10 @@ body{
   to{ transform:translateY(100vh); opacity:0; }
 }
 
-/* APP */
+/* APP (CONTEÚDO PÓS-LOGIN) */
 .app{display:none; padding:20px; max-width:900px; margin:0 auto; position:relative; z-index:1;}
 h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff6699;}
 
-/* CONTADOR */
 #contador {
   background: rgba(255, 102, 153, 0.1);
   padding: 15px;
@@ -98,45 +109,37 @@ h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff
 }
 #contador span { font-weight: bold; color: #ff99cc; }
 
-/* ÁLBUM DE FOTOS */
 .album{
   display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:30px;
 }
 .album img{
   border-radius:15px; object-fit:cover; transition:transform 0.3s; cursor:pointer; background-color: #1a1a1a; 
 }
-.album img:not([src]), .album img[src=""] { visibility: hidden; }
 .album img:hover{ transform:scale(1.05); }
 .album img.pequena{width:100px; height:100px;}
 .album img.media{width:150px; height:150px;}
 .album img.grande{width:250px; height:250px;}
 
-/* CARTA ABERTA */
 .carta{
   background: #f5e1c0; color:#333; padding:25px; border-radius:15px; max-width:600px; margin:0 auto 40px auto;
   box-shadow:0 0 20px rgba(0,0,0,0.5); text-align:left; font-family: 'Georgia', serif; line-height:1.5em; position:relative;
 }
 .carta::before{ content:"💌"; position:absolute; top:-15px; left:-15px; font-size:2em; }
 
-/* QUIZ */
 .quiz{
   max-width:600px; margin:0 auto 50px auto; text-align:left; background: rgba(255,255,255,0.05); padding:20px; border-radius:15px;
 }
 .quiz h2{ color:#ff99cc; margin-bottom:15px; }
-.quiz .pergunta{ margin-bottom:15px; }
 .quiz button{
   margin:5px 5px 0 0; padding:8px 12px; border:none; border-radius:10px;
-  background:linear-gradient(45deg,#ff4d88,#ff0066); color:white; cursor:pointer; transition:0.3s;
+  background:linear-gradient(45deg,#ff4d88,#ff0066); color:white; cursor:pointer;
 }
 
-/* BAÚ E VALES */
 .bau-container { margin-top: 50px; padding-bottom: 80px; }
 .bau { font-size: 80px; cursor: pointer; transition: transform 0.3s; display: inline-block; }
 .bau:hover { transform: scale(1.1); }
 #msgBau { margin-top: 15px; color: #ffccaa; font-weight: bold; min-height: 24px; }
-.vales-area {
-  display: none; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 25px;
-}
+.vales-area { display: none; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 25px; }
 .vale {
   background: linear-gradient(135deg, #ff99cc, #ff6699); color: white; padding: 20px;
   border-radius: 10px; width: 220px; font-weight: bold; border: 2px dashed white;
@@ -163,114 +166,75 @@ h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff
 
 <div class="app" id="app">
   <h1>Nosso Amor ❤️</h1>
-  
   <div id="contador">Estamos juntos há:<br><span id="tempo">Calculando...</span></div>
-
   <div class="album" id="albumContainer"></div>
   <div class="carta"><p id="textoCarta"></p></div>
   <div id="quiz" class="quiz"></div>
-
   <div class="bau-container">
     <h2 style="color:#ff99cc;">Baú de Mimos</h2>
-    <p>Você só pode resgatar um vale por dia!</p>
     <div class="bau" id="bauEmoji" onclick="abrirBau()">📦</div>
     <div id="msgBau"></div>
-    <div class="vales-area" id="valesArea">
-      </div>
+    <div class="vales-area" id="valesArea"></div>
   </div>
 </div>
 
 <script>
-// DATA DE INÍCIO (29 de Novembro de 2025)
 const dataInicio = new Date("2025-11-29T00:00:00");
 
 function atualizarContador() {
     const agora = new Date();
     const diff = agora - dataInicio;
-
     const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
     const meses = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
     const dias = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
     const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById("tempo").innerHTML = 
-        `${anos} anos, ${meses} meses, ${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
+    document.getElementById("tempo").innerHTML = `${anos} anos, ${meses} meses, ${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
 }
-
 setInterval(atualizarContador, 1000);
 
-const valesPossiveis = [
-  "🎟️ VALE ABRAÇO INFINITO",
-  "🎟️ VALE BEIJO COM SAUDADE",
-  "🎟️ VALE SAPECAGEM 🔥",
-  "🎟️ VALE MASSAGEM RELAXANTE",
-  "🎟️ VALE CINEMINHA COM PIPOCA",
-  "🎟️ VALE JANTAR FAVORITO",
-  "🎟️ VALE UM DIA SEM RECLAMAR",
-  "🎟️ VALE CAFUNÉ ATÉ DORMIR"
-];
+const valesPossiveis = ["🎟️ VALE ABRAÇO INFINITO", "🎟️ VALE BEIJO COM SAUDADE", "🎟️ VALE SAPECAGEM 🔥", "🎟️ VALE MASSAGEM RELAXANTE", "🎟️ VALE CINEMINHA COM PIPOCA", "🎟️ VALE JANTAR FAVORITO", "🎟️ VALE UM DIA SEM RECLAMAR", "🎟️ VALE CAFUNÉ ATÉ DORMIR"];
 
 function abrirBau() {
     const hoje = new Date().toDateString();
-    const ultimoAcesso = localStorage.getItem("ultimoValeData");
-
-    if (ultimoAcesso === hoje) {
+    if (localStorage.getItem("ultimoValeData") === hoje) {
         document.getElementById("msgBau").innerText = "Ei! Você já pegou seu presente de hoje. Volte amanhã! 😉";
         return;
     }
-
     const sorteado = valesPossiveis[Math.floor(Math.random() * valesPossiveis.length)];
-    const bau = document.getElementById("bauEmoji");
-    const area = document.getElementById("valesArea");
-    
-    bau.innerHTML = "🎁";
-    area.innerHTML = `<div class="vale">${sorteado}</div>`;
-    area.style.display = "flex";
+    document.getElementById("bauEmoji").innerHTML = "🎁";
+    document.getElementById("valesArea").innerHTML = `<div class="vale">${sorteado}</div>`;
+    document.getElementById("valesArea").style.display = "flex";
     document.getElementById("msgBau").innerText = "Aproveite seu mimo de hoje! ❤️";
     localStorage.setItem("ultimoValeData", hoje);
 }
 
-const texto=`Oi amor, feliz dia de São Valentim!  
-Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa... Te amo muito ❤️  
-PS: Com amor, Victor`;
+const texto=`Oi amor, feliz dia de São Valentim! Esse é meu presente pra você. Queria fazer algo especial e à mão... Te amo muito ❤️\nPS: Com amor, Victor`;
 
 const fotos = [
-  {src: "IMG-20260117-WA0007.jpg", classe: "grande"},
-  {src: "IMG-20260117-WA0010.jpg", classe: "media"},
-  {src: "IMG-20260117-WA0009.jpg", classe: "pequena"},
-  {src: "IMG-20260117-WA0011.jpg", classe: "grande"},
-  {src: "IMG-20260130-WA0087.jpg", classe: "media"},
-  {src: "IMG-20260130-WA0088.jpg", classe: "pequena"},
-  {src: "IMG-20260207-WA0098.jpg", classe: "grande"},
-  {src: "IMG-20260213-WA0017.jpg", classe: "media"},
-  {src: "IMG-20260131-WA0009.jpg", classe: "pequena"},
-  {src: "IMG-20260214-WA0077.jpg", classe: "grande"},
-  {src: "IMG-20260214-WA0073.jpg", classe: "media"},
-  {src: "IMG-20260214-WA0071.jpg", classe: "media"},
-  {src: "IMG-20260214-WA0076.jpg", classe: "pequena"},
-  {src: "IMG-20260214-WA0078.jpg", classe: "pequena"},
-  {src: "IMG-20260214-WA0075.jpg", classe: "media"},
-  {src: "IMG-20260117-WA0008.jpg", classe: "media"},
-  {src: "IMG-20260202-WA0009.jpg", classe: "pequena"},
-  {src: "IMG-20260203-WA0027.jpg", classe: "grande"},
+  {src: "IMG-20260117-WA0007.jpg", classe: "grande"}, {src: "IMG-20260117-WA0010.jpg", classe: "media"},
+  {src: "IMG-20260117-WA0009.jpg", classe: "pequena"}, {src: "IMG-20260117-WA0011.jpg", classe: "grande"},
+  {src: "IMG-20260130-WA0087.jpg", classe: "media"}, {src: "IMG-20260130-WA0088.jpg", classe: "pequena"},
+  {src: "IMG-20260207-WA0098.jpg", classe: "grande"}, {src: "IMG-20260213-WA0017.jpg", classe: "media"},
+  {src: "IMG-20260131-WA0009.jpg", classe: "pequena"}, {src: "IMG-20260214-WA0077.jpg", classe: "grande"},
+  {src: "IMG-20260214-WA0073.jpg", classe: "media"}, {src: "IMG-20260214-WA0071.jpg", classe: "media"},
+  {src: "IMG-20260214-WA0076.jpg", classe: "pequena"}, {src: "IMG-20260214-WA0078.jpg", classe: "pequena"},
+  {src: "IMG-20260214-WA0075.jpg", classe: "media"}, {src: "IMG-20260117-WA0008.jpg", classe: "media"},
+  {src: "IMG-20260202-WA0009.jpg", classe: "pequena"}, {src: "IMG-20260203-WA0027.jpg", classe: "grande"},
   {src: "IMG-20260203-WA0044.jpg", classe: "media"}
 ];
 
 function verificarSenha(){
-  const senha = document.getElementById("senha").value;
-  if(senha==="291125"){
+  if(document.getElementById("senha").value==="291125"){
     document.getElementById("login").style.display="none";
     document.getElementById("app").style.display="block";
     document.getElementById("textoCarta").innerText=texto;
-    document.getElementById("musicaFundo").play();
+    try { document.getElementById("musicaFundo").play(); } catch(e){}
     carregarFotos();
     iniciarCerejas();
     gerarQuiz();
-  } else {
-    alert("Senha errada 😏");
-  }
+  } else { alert("Senha errada 😏"); }
 }
 
 function carregarFotos(){
@@ -313,10 +277,9 @@ function gerarQuiz(){
   let acertos=0;
   const quizDiv = document.getElementById("quiz");
   quizDiv.innerHTML="<h2>Quiz do Amor 💞</h2>";
-  const perguntasSelecionadas = perguntas.sort(()=>0.5-Math.random()).slice(0,10);
-  perguntasSelecionadas.forEach(pergunta=>{
+  perguntas.sort(()=>0.5-Math.random()).slice(0,10).forEach(pergunta=>{
     const pDiv = document.createElement("div");
-    pDiv.classList.add("pergunta");
+    pDiv.style.marginBottom="15px";
     pDiv.innerHTML=`<p>${pergunta.q}</p>`;
     pergunta.op.forEach(op=>{
       const btn = document.createElement("button");
@@ -324,7 +287,6 @@ function gerarQuiz(){
       btn.onclick = ()=>{
         if(op===pergunta.r){ acertos++; btn.style.background='green'; }
         else{ btn.style.background='red'; }
-        btn.disabled=true;
         pDiv.querySelectorAll("button").forEach(b=>b.disabled=true);
         document.getElementById("resultado").innerText="Acertos: "+acertos;
       }
