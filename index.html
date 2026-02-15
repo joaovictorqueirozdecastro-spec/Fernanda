@@ -14,7 +14,7 @@ body {
     text-align: center;
 }
 
-/* VIDEO FUNDO */
+/* VIDEO */
 #bgVideo {
     position: fixed;
     right: 0;
@@ -22,6 +22,14 @@ body {
     min-width: 100%;
     min-height: 100%;
     object-fit: cover;
+    z-index: -2;
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
     z-index: -1;
 }
 
@@ -35,73 +43,72 @@ body {
     justify-content: flex-end;
     align-items: center;
     padding-bottom: 40px;
-    background: rgba(0,0,0,0.3);
     z-index: 10;
 }
 
-input {
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
-    margin-top: 10px;
-    text-align: center;
-}
-
-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background: white;
-    color: #ff4d6d;
-    font-weight: bold;
-    cursor: pointer;
-}
-
+/* APP */
 .app {
     padding: 20px;
     display: none;
-    background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
     min-height: 100vh;
+    background: radial-gradient(circle, rgba(255,143,163,0.3), rgba(0,0,0,0.7));
 }
 
-/* CARTA */
-.carta {
-    margin: 20px auto;
-    width: 120px;
-    height: 80px;
-    background: white;
-    border-radius: 10px;
-    cursor: pointer;
-    position: relative;
-}
-
-.carta::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: #ff8fa3;
-    clip-path: polygon(0 0, 50% 100%, 100% 0);
-}
-
-.texto-carta {
-    display: none;
-    margin-top: 20px;
-    background: white;
-    color: #333;
-    padding: 20px;
-    border-radius: 20px;
-}
-
-/* CORAÇÕES */
-.heart {
-    position: fixed;
-    top: -10px;
-    color: pink;
+/* CONTADOR */
+.contador {
     font-size: 20px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* GALERIA ANIMADA */
+.gallery img {
+    width: 100%;
+    border-radius: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease;
+}
+
+.gallery img.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* MODAL CARTA */
+.modalCarta {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+}
+
+.carta-container {
+    width: 320px;
+    height: 220px;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    color: #333;
+    overflow-y: auto;
+}
+
+/* CEREJAS */
+.cherry {
+    position: fixed;
+    top: -20px;
+    font-size: 22px;
     animation: fall linear forwards;
 }
 
@@ -116,33 +123,41 @@ button {
 
 <body>
 
-<!-- VIDEO -->
 <video autoplay muted loop id="bgVideo">
     <source src="video.mp4" type="video/mp4">
 </video>
 
-<!-- LOGIN -->
+<div class="overlay"></div>
+
 <div class="login-screen">
     <h2>🔒 LoveApp Privado</h2>
     <input type="password" id="senha" placeholder="Senha secreta">
     <button onclick="verificarSenha()">Entrar 💕</button>
 </div>
 
-<!-- APP -->
 <div class="app">
     <h1>💖 Aplicativo Oficial da Minha Namorada 💖</h1>
 
-    <!-- CARTA -->
-    <div class="carta" onclick="abrirCarta()"></div>
+    <div class="contador" id="contador"></div>
 
-    <div class="texto-carta" id="textoCarta">
-        <p>Oi, amor. Não consegui te presentear com nada nesse dia, mas eu aprendi a programar só para te fazer, de novo, uma pessoa especial nesse dia e mostrar como eu te amo e te admiro.</p>
+    <button onclick="abrirCarta()">💌 Abrir Cartinha</button>
 
-        <p>Gosto de lembrar de como nós nos conhecemos e, às vezes, até dos altos e baixos que tivemos, porque eles nos mostram como nos amamos e escolhemos ficar, cuidar e cultivar o nosso amor.</p>
+    <div class="gallery">
+        <img src="IMG-20260117-WA0007.jpg">
+        <img src="IMG-20260117-WA0010.jpg">
+        <img src="IMG-20260130-WA0087.jpg">
+        <img src="IMG-20260207-WA0098.jpg">
+        <img src="IMG-20260213-WA0017.jpg">
+        <img src="IMG-20260214-WA0073.jpg">
+        <img src="IMG-20260214-WA0076.jpg">
+        <img src="IMG-20260214-WA0077.jpg">
+        <img src="IMG-20260214-WA0078.jpg">
+    </div>
+</div>
 
-        <p>Te amo por tudo e para tudo.</p>
-
-        <p><strong>PS: Com amor,<br>Victor</strong></p>
+<div class="modalCarta" id="modalCarta">
+    <div class="carta-container">
+        <p id="textoDigitando"></p>
     </div>
 </div>
 
@@ -151,37 +166,74 @@ button {
 </audio>
 
 <script>
-function verificarSenha() {
-    var senhaCorreta = "291125";
-    var senhaDigitada = document.getElementById("senha").value;
+const texto = `Oi, amor. Não consegui te presentear com nada nesse dia, mas eu aprendi a programar só para te fazer, de novo, uma pessoa especial nesse dia e mostrar como eu te amo e te admiro.
 
-    if (senhaDigitada === senhaCorreta) {
+Gosto de lembrar de como nós nos conhecemos e, às vezes, até dos altos e baixos que tivemos, porque eles nos mostram como nos amamos e escolhemos ficar, cuidar e cultivar o nosso amor.
+
+Te amo por tudo e para tudo.
+
+PS: Com amor,
+Victor`;
+
+function verificarSenha() {
+    if (document.getElementById("senha").value === "291125") {
         document.querySelector(".login-screen").style.display = "none";
         document.querySelector(".app").style.display = "block";
-        iniciarCoracoes();
         document.getElementById("musica").play();
+        iniciarCerejas();
+        iniciarGaleria();
+        iniciarContador();
     } else {
         alert("Senha errada 😏");
     }
 }
 
 function abrirCarta() {
-    document.getElementById("textoCarta").style.display = "block";
+    document.getElementById("modalCarta").style.display = "flex";
+    efeitoDigitacao();
 }
 
-function iniciarCoracoes() {
-    setInterval(() => {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-        document.body.appendChild(heart);
+function efeitoDigitacao() {
+    let i = 0;
+    const velocidade = 30;
+    const elemento = document.getElementById("textoDigitando");
+    elemento.innerHTML = "";
 
+    function digitar() {
+        if (i < texto.length) {
+            elemento.innerHTML += texto.charAt(i);
+            i++;
+            setTimeout(digitar, velocidade);
+        }
+    }
+    digitar();
+}
+
+function iniciarCerejas() {
+    setInterval(() => {
+        const cherry = document.createElement("div");
+        cherry.classList.add("cherry");
+        cherry.innerHTML = "🍒";
+        cherry.style.left = Math.random() * 100 + "vw";
+        cherry.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(cherry);
+
+        setTimeout(() => cherry.remove(), 5000);
+    }, 400);
+}
+
+function iniciarGaleria() {
+    const imagens = document.querySelectorAll(".gallery img");
+    imagens.forEach((img, index) => {
         setTimeout(() => {
-            heart.remove();
-        }, 5000);
-    }, 300);
+            img.classList.add("show");
+        }, index * 600);
+    });
+}
+
+function iniciarContador() {
+    document.getElementById("contador").innerText =
+        "Estamos juntos há 2 meses e 16 dias 💞";
 }
 </script>
 
