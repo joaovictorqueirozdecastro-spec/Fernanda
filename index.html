@@ -3,226 +3,309 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bem-vinda ❤️‍🩹</title>
+<title>Bem Vinda ❤️‍🩹</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-  font-family: 'Segoe UI', sans-serif;
-  color:white;
-  overflow-x:hidden;
-  text-align:center;
-  padding:20px;
-  background:black;
+font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(45deg,#220022,#000000);
+color:white;
+overflow-x:hidden;
+text-align:center;
+position:relative;
 }
 
-/* LOGIN COM VÍDEO */
+/* LOGIN */
 .login-screen{
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  z-index:10;
-  color:white;
-  text-shadow:0 0 10px black;
+position:fixed;
+width:100%;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+align-items:center;
+padding-bottom:150px;
+gap:15px;
+z-index:10;
+color:white;
 }
 
+input{
+padding:10px;
+border-radius:10px;
+border:none;
+text-align:center;
+}
+
+button{
+padding:12px 18px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#ff4d88,#ff0066);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 0 15px rgba(255,0,100,0.6);
+}
+
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 25px rgba(255,0,150,1);
+}
+
+/* VIDEO LOGIN */
 #bgLoginVideo{
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-1;
-  filter:brightness(0.5);
-}
-
-.login-screen input{
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  text-align:center;
-  margin-bottom:10px;
-}
-
-.login-screen button{
-  padding:12px 18px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#ff4d88,#ff0066);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 15px rgba(255,0,100,0.6);
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
+filter:brightness(0.3);
 }
 
 /* APP */
-.app{display:none; padding:20px; max-width:800px; margin:0 auto;}
-h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff6699;}
-
-/* ÁLBUM DE FOTOS */
-.album{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:30px;
-}
-.album img{
-  border-radius:15px;
-  object-fit:cover;
-  transition:transform 0.3s;
-  cursor:pointer;
-}
-.album img:hover{ transform:scale(1.05); }
-.album img.pequena{width:100px; height:100px;}
-.album img.media{width:150px; height:150px;}
-.album img.grande{width:250px; height:250px;}
-
-/* CARTA ABERTA */
-.carta{
-  background: #f5e1c0;
-  color:#333;
-  padding:25px;
-  border-radius:15px;
-  max-width:600px;
-  margin:0 auto 40px auto;
-  box-shadow:0 0 20px rgba(0,0,0,0.5);
-  text-align:left;
-  font-family: 'Georgia', serif;
-  line-height:1.5em;
-  position:relative;
-}
-.carta::before{
-  content:"💌";
-  position:absolute;
-  top:-15px;
-  left:-15px;
-  font-size:2em;
+.app{
+display:none;
+padding:20px;
+min-height:100vh;
+animation:fadeIn 2s ease forwards;
+position:relative;
+z-index:1;
 }
 
-/* QUIZ */
-.quiz{
-  max-width:600px;
-  margin:0 auto 50px auto;
-  text-align:left;
-  background: rgba(255,255,255,0.1);
-  padding:20px;
-  border-radius:15px;
+/* CONTADOR */
+.contador{
+margin:15px 0;
+font-size:18px;
+opacity:0.9;
 }
-.quiz h2{ color:#ff99cc; margin-bottom:15px; }
-.quiz .pergunta{ margin-bottom:15px; }
-.quiz button{
-  margin:5px 5px 0 0;
-  padding:8px 12px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(45deg,#ff4d88,#ff0066);
-  color:white;
-  cursor:pointer;
-  transition:0.3s;
+
+/* SLIDESHOW */
+.slideshow{
+margin-top:20px;
+border-radius:20px;
+overflow:hidden;
+position:relative;
+height:250px;
 }
-.quiz button:hover{ transform:scale(1.05); }
-#resultado{ margin-top:15px; font-weight:bold; color:#ffccaa; }
+
+.slideshow img{
+width:100%;
+height:100%;
+object-fit:cover;
+position:absolute;
+opacity:0;
+transition:opacity 1.5s ease;
+border-radius:20px;
+}
+
+.slideshow img.active{
+opacity:1;
+}
+
+/* GALERIA */
+.gallery{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+justify-content:center;
+margin-top:20px;
+}
+
+.gallery img{
+border-radius:15px;
+width:150px;
+height:150px;
+object-fit:cover;
+}
+
+/* CARTA */
+.modalCarta{
+position:fixed;
+width:90%;
+max-width:500px;
+height:auto;
+max-height:70%;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+background:#fff4e1;
+border-radius:15px;
+padding:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+z-index:20;
+box-shadow:0 0 30px rgba(0,0,0,0.5);
+}
+
+.carta-container p{
+color:#333;
+white-space:pre-wrap;
+font-size:16px;
+line-height:1.4;
+}
+
+/* FINAL */
+.final{
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+font-size:26px;
+text-align:center;
+animation:fadeIn 2s ease forwards;
+z-index:30;
+}
+
+/* CEREJAS */
+.cherry{
+position:fixed;
+top:-20px;
+font-size:20px;
+animation:fall linear forwards;
+z-index:5;
+}
+
+@keyframes fall{
+to{
+transform:translateY(100vh);
+opacity:0;
+}
+}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- VIDEO LOGIN -->
+<video autoplay muted loop playsinline id="bgLoginVideo">
+<source src="VID-20260214-WA0080.mp4" type="video/mp4">
+</video>
+
 <div class="login-screen" id="login">
-  <video autoplay muted loop playsinline id="bgLoginVideo">
-    <source src="VID-20260214-WA0080.mp4" type="video/mp4">
-  </video>
-  <h1>Bem-vinda ❤️‍🩹</h1>
-  <input type="password" id="senha" placeholder="Senha secreta">
-  <button onclick="verificarSenha()">Entrar 💕</button>
+<h2>Bem Vinda ❤️‍🩹</h2>
+<input type="password" id="senha" placeholder="Senha secreta">
+<button onclick="verificarSenha()">Entrar 💕</button>
 </div>
 
-<!-- APP -->
 <div class="app" id="app">
-  <!-- ÁLBUM DE FOTOS -->
-  <div class="album">
-    <img src="IMG-20260117-WA0007.jpg" class="grande">
-    <img src="IMG-20260117-WA0010.jpg" class="media">
-    <img src="IMG-20260130-WA0087.jpg" class="media">
-    <img src="IMG-20260207-WA0098.jpg" class="grande">
-    <img src="IMG-20260213-WA0017.jpg" class="media">
-    <img src="IMG-20260214-WA0073.jpg" class="media">
-    <img src="IMG-20260214-WA0076.jpg" class="pequena">
-    <img src="IMG-20260214-WA0077.jpg" class="grande">
-    <img src="IMG-20260214-WA0078.jpg" class="pequena">
-    <!-- Adicione aqui as outras fotos que você tiver -->
-  </div>
 
-  <!-- CARTA ABERTA -->
-  <div class="carta">
-    <p>Oi, amor! 💖<br><br>
-    Eu quero que você saiba que cada momento contigo é único. Te amo todos os dias, em todas as versões da minha vida. Obrigado por ser meu melhor destino. 💌</p>
-  </div>
+<h1>Eu te amo ❤️</h1>
 
-  <!-- QUIZ -->
-  <div class="quiz" id="quiz"></div>
+<div class="contador" id="contador"></div>
 
+<div class="slideshow">
+<img src="IMG-20260117-WA0007.jpg" class="slide active">
+<img src="IMG-20260117-WA0010.jpg" class="slide">
+<img src="IMG-20260130-WA0087.jpg" class="slide">
+<img src="IMG-20260207-WA0098.jpg" class="slide">
+<img src="IMG-20260213-WA0017.jpg" class="slide">
+<img src="IMG-20260214-WA0073.jpg" class="slide">
+<img src="IMG-20260214-WA0076.jpg" class="slide">
+<img src="IMG-20260214-WA0077.jpg" class="slide">
+<img src="IMG-20260214-WA0078.jpg" class="slide">
 </div>
+
+<div class="gallery" id="gallery">
+<!-- Fotos do álbum -->
+<img src="IMG-20260207-WA0098.jpg">
+<img src="IMG-20260213-WA0017.jpg">
+<img src="IMG-20260214-WA0073.jpg">
+<img src="IMG-20260214-WA0076.jpg">
+<img src="IMG-20260214-WA0077.jpg">
+<img src="IMG-20260214-WA0078.jpg">
+</div>
+
+<!-- Carta aberta -->
+<div class="modalCarta" id="modalCarta">
+<div class="carta-container">
+<p id="textoDigitando"></p>
+</div>
+</div>
+
+<div class="final" id="final">
+Eu escolheria você em todas as vidas.<br><br>
+Para sempre nós. 💞
+</div>
+
+<audio id="musica" loop>
+<source src="BK_-_Planos parte. Luccas Carlo.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-// LOGIN
+const texto=`Oi, amor, feliz Dia de São Valentim!  
+Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa.  
+Porque por você eu faria qualquer coisa, até mesmo me reinventar só pra te fazer feliz, porque você merece o mundo.  
+Te amo muito ❤️  
+
+PS: Com amor, Victor`;
+
 function verificarSenha(){
-  const senha = document.getElementById("senha").value;
-  if(senha==="291125"){
-    document.getElementById("login").style.display="none";
-    document.getElementById("app").style.display="block";
-    gerarQuiz();
-  } else {
-    alert("Senha errada 😏");
-  }
+if(document.getElementById("senha").value==="291125"){
+document.getElementById("login").style.display="none";
+document.getElementById("app").style.display="block";
+document.getElementById("modalCarta").style.display="flex";
+document.getElementById("musica").play();
+iniciarContador();
+iniciarSlide();
+iniciarCerejas();
+digitarCarta();
+}else{
+alert("Senha errada 😏");
+}
 }
 
-// QUIZ COM 10 PERGUNTAS ALEATÓRIAS
-const perguntas = [
-  {q:"Qual é minha cor favorita?", r:"Rosa", op:["Rosa","Azul","Verde"]},
-  {q:"Qual é meu doce favorito?", r:"Chocolate", op:["Chocolate","Bala","Sorvete"]},
-  {q:"Qual meu filme favorito?", r:"Titanic", op:["Titanic","Avatar","Vingadores"]},
-  {q:"Meu animal favorito?", r:"Cachorro", op:["Gato","Cachorro","Pássaro"]},
-  {q:"Minha estação favorita?", r:"Verão", op:["Verão","Inverno","Primavera"]},
-  {q:"Meu lugar dos sonhos?", r:"Canadá", op:["Canadá","Brasil","França"]},
-  {q:"Minha fruta favorita?", r:"Morango", op:["Morango","Banana","Maçã"]},
-  {q:"Meu hobby favorito?", r:"Música", op:["Música","Esporte","Leitura"]},
-  {q:"Minha bebida favorita?", r:"Café", op:["Café","Suco","Chá"]},
-  {q:"Minha comida favorita?", r:"Pizza", op:["Pizza","Lasanha","Sushi"]}
-];
+function digitarCarta(){
+let i=0;
+const el=document.getElementById("textoDigitando");
+el.innerHTML="";
+function digitar(){
+if(i<texto.length){
+el.innerHTML+=texto.charAt(i);
+i++;
+setTimeout(digitar,30);
+}}
+digitar();
+}
 
-function gerarQuiz(){
-  let acertos=0;
-  const quizDiv = document.getElementById("quiz");
-  quizDiv.innerHTML="<h2>Quiz do Amor 💞</h2>";
-  
-  const perguntasSelecionadas = perguntas.sort(()=>0.5-Math.random()).slice(0,10);
-  
-  perguntasSelecionadas.forEach(pergunta=>{
-    const pDiv = document.createElement("div");
-    pDiv.classList.add("pergunta");
-    pDiv.innerHTML=`<p>${pergunta.q}</p>`;
-    pergunta.op.forEach(op=>{
-      const btn = document.createElement("button");
-      btn.innerText=op;
-      btn.onclick = ()=>{
-        if(op===pergunta.r){ acertos++; btn.style.background='green'; }
-        else{ btn.style.background='red'; }
-        btn.disabled=true;
-        pDiv.querySelectorAll("button").forEach(b=>b.disabled=true);
-        document.getElementById("resultado").innerText="Acertos: "+acertos;
-      }
-      pDiv.appendChild(btn);
-    });
-    quizDiv.appendChild(pDiv);
-  });
-  const resDiv = document.createElement("div");
-  resDiv.id="resultado";
-  quizDiv.appendChild(resDiv);
+function iniciarContador(){
+const inicio=new Date("2025-11-29");
+const hoje=new Date();
+const diff=Math.floor((hoje-inicio)/(1000*60*60*24));
+document.getElementById("contador").innerText=
+"Estamos juntos há "+diff+" dias 💞";
+}
+
+function iniciarSlide(){
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+slides.forEach(s=>s.classList.remove("active"));
+slides[index].classList.add("active");
+index=(index+1)%slides.length;
+},4000);
+}
+
+function iniciarCerejas(){
+setInterval(()=>{
+const cherry=document.createElement("div");
+cherry.classList.add("cherry");
+cherry.innerHTML="🍒";
+cherry.style.left=Math.random()*100+"vw";
+cherry.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(cherry);
+setTimeout(()=>cherry.remove(),6000);
+},600);
 }
 </script>
 
