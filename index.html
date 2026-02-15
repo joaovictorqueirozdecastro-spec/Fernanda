@@ -132,7 +132,6 @@ h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff
   background:linear-gradient(45deg,#ff4d88,#ff0066); color:white; cursor:pointer;
 }
 
-/* ESTILO BAÚ */
 .bau-container { margin-top: 50px; padding-bottom: 80px; }
 .bau { font-size: 80px; cursor: pointer; transition: transform 0.3s; display: inline-block; }
 .bau:hover { transform: scale(1.1); }
@@ -166,7 +165,6 @@ h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff
   <div class="album" id="albumContainer"></div>
   <div class="carta"><p id="textoCarta"></p></div>
   <div id="quiz" class="quiz"></div>
-  
   <div class="bau-container">
     <h2 style="color:#ff99cc;">Baú de Mimos</h2>
     <p style="margin-bottom: 20px; color: #ffccaa;">Você só pode resgatar um vale por dia!</p>
@@ -208,7 +206,6 @@ function abrirBau() {
     localStorage.setItem("ultimoValeData", hoje);
 }
 
-// SEU TEXTO EMOCIONANTE ATUALIZADO:
 const texto = `Oi, amor, feliz Dia de São Valentim!  
 Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa.  
 Porque por você eu faria qualquer coisa, até mesmo me reinventar só pra te fazer feliz, porque você merece o mundo.  
@@ -216,17 +213,27 @@ Te amo muito ❤️
 
 PS: Com amor, Victor`;
 
+// LISTA DE FOTOS CONSERTADA COM BASE NO SEU PRINT:
 const fotos = [
-  {src: "IMG-20260117-WA0007.jpg", classe: "grande"}, {src: "IMG-20260117-WA0010.jpg", classe: "media"},
-  {src: "IMG-20260117-WA0009.jpg", classe: "pequena"}, {src: "IMG-20260117-WA0011.jpg", classe: "grande"},
-  {src: "IMG-20260130-WA0087.jpg", classe: "media"}, {src: "IMG-20260130-WA0088.jpg", classe: "pequena"},
-  {src: "IMG-20260207-WA0098.jpg", classe: "grande"}, {src: "IMG-20260213-WA0017.jpg", classe: "media"},
-  {src: "IMG-20260131-WA0009.jpg", classe: "pequena"}, {src: "IMG-20260214-WA0077.jpg", classe: "grande"},
-  {src: "IMG-20260214-WA0073.jpg", classe: "media"}, {src: "IMG-20260214-WA0071.jpg", classe: "media"},
-  {src: "IMG-20260214-WA0076.jpg", classe: "pequena"}, {src: "IMG-20260214-WA0078.jpg", classe: "pequena"},
-  {src: "IMG-20260214-WA0075.jpg", classe: "media"}, {src: "IMG-20260117-WA0008.jpg", classe: "media"},
-  {src: "IMG-20260202-WA0009.jpg", classe: "pequena"}, {src: "IMG-20260202-WA0027.jpg", classe: "grande"},
-  {src: "IMG-20260203-WA0044.jpg", classe: "media"}
+  {src: "IMG-20260117-WA0007.jpg", classe: "grande"},
+  {src: "IMG-20260117-WA0010.jpg", classe: "media"},
+  {src: "IMG-20260124-WA0058.jpg", classe: "media"},
+  {src: "IMG-20260130-WA0087.jpg", classe: "grande"},
+  {src: "IMG-20260130-WA0088.jpg", classe: "pequena"},
+  {src: "IMG-20260131-WA0089.jpg", classe: "media"},
+  {src: "IMG-20260202-WA0009.jpg", classe: "pequena"},
+  {src: "IMG-20260203-WA0027.jpg", classe: "grande"},
+  {src: "IMG-20260207-WA0034.jpg", classe: "media"},
+  {src: "IMG-20260207-WA0098.jpg", classe: "grande"},
+  {src: "IMG-20260213-WA0000.jpg", classe: "pequena"},
+  {src: "IMG-20260213-WA0017.jpg", classe: "media"},
+  {src: "IMG-20260214-WA0073.jpg", classe: "grande"},
+  {src: "IMG-20260214-WA0076.jpg", classe: "pequena"},
+  {src: "IMG-20260214-WA0077.jpg", classe: "media"},
+  {src: "IMG-20260214-WA0078.jpg", classe: "pequena"},
+  {src: "IMG-20260117_221559.jpg", classe: "media"},
+  {src: "IMG-20260117_221601.jpg", classe: "media"},
+  {src: "IMG-20260117_221652.jpg", classe: "pequena"}
 ];
 
 function verificarSenha(){
