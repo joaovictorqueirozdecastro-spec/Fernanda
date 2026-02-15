@@ -204,7 +204,6 @@ opacity:0;
 
 <div class="app" id="app">
 
-<!-- VIDEO AGORA FICA DENTRO DO APP -->
 <video autoplay muted loop playsinline id="bgVideo">
 <source src="VID-20260214-WA0080.mp4" type="video/mp4">
 </video>
@@ -230,18 +229,6 @@ opacity:0;
 <img src="IMG-20260214-WA0078.jpg" class="slide">
 </div>
 
-<div class="gallery">
-<img src="IMG-20260207-WA0098.jpg">
-<img src="IMG-20260213-WA0017.jpg">
-<img src="IMG-20260214-WA0073.jpg">
-<img src="IMG-20260214-WA0076.jpg">
-<img src="IMG-20260214-WA0077.jpg">
-<img src="IMG-20260214-WA0078.jpg">
-<img src="IMG-20260117-WA0007.jpg">
-<img src="IMG-20260117-WA0010.jpg">
-<img src="IMG-20260130-WA0087.jpg">
-</div>
-
 <br>
 <button onclick="finalSurpresa()">Última surpresa 💍</button>
 
@@ -263,7 +250,6 @@ Para sempre nós. 💞
 </audio>
 
 <script>
-
 const texto=`Oi, amor... eu escolheria você todos os dias, em todas as versões da minha vida. 💖`;
 
 function verificarSenha(){
@@ -271,7 +257,6 @@ if(document.getElementById("senha").value==="291125"){
 document.getElementById("login").style.display="none";
 document.getElementById("app").style.display="block";
 iniciarContador();
-iniciarGaleria();
 iniciarSlide();
 iniciarCerejas();
 }else{
@@ -289,25 +274,6 @@ const hoje=new Date();
 const diff=Math.floor((hoje-inicio)/(1000*60*60*24));
 document.getElementById("contador").innerText=
 "Estamos juntos há "+diff+" dias 💞";
-}
-
-function iniciarGaleria(){
-const imgs=document.querySelectorAll(".gallery img");
-imgs.forEach((img,i)=>{
-setTimeout(()=>{img.classList.add("show");},i*400);
-});
-}
-
-function iniciarCerejas(){
-setInterval(()=>{
-const cherry=document.createElement("div");
-cherry.classList.add("cherry");
-cherry.innerHTML="🍒";
-cherry.style.left=Math.random()*100+"vw";
-cherry.style.animationDuration=(Math.random()*3+3)+"s";
-document.body.appendChild(cherry);
-setTimeout(()=>cherry.remove(),6000);
-},600);
 }
 
 function abrirCarta(){
@@ -328,16 +294,27 @@ function iniciarSlide(){
 let slides=document.querySelectorAll(".slide");
 let index=0;
 setInterval(()=>{
-slides[index].classList.remove("active");
-index=(index+1)%slides.length;
+slides.forEach(s=>s.classList.remove("active"));
 slides[index].classList.add("active");
-},4000);
+index=(index+1)%slides.length;
+},3000); // muda a cada 3s
+}
+
+function iniciarCerejas(){
+setInterval(()=>{
+const cherry=document.createElement("div");
+cherry.classList.add("cherry");
+cherry.innerHTML="🍒";
+cherry.style.left=Math.random()*100+"vw";
+cherry.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(cherry);
+setTimeout(()=>cherry.remove(),6000);
+},600);
 }
 
 function finalSurpresa(){
 document.getElementById("final").style.display="flex";
 }
-
 </script>
 
 </body>
