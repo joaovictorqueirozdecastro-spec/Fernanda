@@ -103,10 +103,16 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
   object-fit:cover;
   transition:transform 0.3s;
   cursor:pointer;
+  /* CORREÇÃO: Esconde o ícone de imagem quebrada */
+  background-color: #1a1a1a; 
 }
-.album img:hover{ transform:scale(1.05); }
 
-/* Classes de tamanho corrigidas (sem acento para bater com o HTML abaixo) */
+/* Se a imagem falhar, ela fica invisível em vez de mostrar o erro */
+.album img:not([src]), .album img[src=""] {
+  visibility: hidden;
+}
+
+.album img:hover{ transform:scale(1.05); }
 .album img.pequena{width:100px; height:100px;}
 .album img.media{width:150px; height:150px;}
 .album img.grande{width:250px; height:250px;}
@@ -160,7 +166,6 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 </head>
 <body>
 
-<!-- VIDEO LOGIN -->
 <div class="login-screen" id="login">
   <video autoplay muted loop playsinline id="bgLoginVideo">
     <source src="VID-20260214-WA0080.mp4" type="video/mp4">
@@ -172,51 +177,16 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 
 <div class="luzes"></div>
 
-<!-- APP -->
 <div class="app" id="app">
-
-  <!-- ÁLBUM DE FOTOS CORRIGIDO -->
-  <div class="album">
-    <!-- Grupo 1 -->
-    <img src="IMG-20260117-WA0007.jpg" class="grande">
-    <img src="IMG-20260117-WA0010.jpg" class="media">
-    <img src="IMG-20260117-WA0009.jpg" class="pequena">
-    
-    <!-- Grupo 2 -->
-    <img src="IMG-20260117-WA0011.jpg" class="grande">
-    <img src="IMG-20260130-WA0087.jpg" class="media">
-    <img src="IMG-20260130-WA0088.jpg" class="pequena">
-    
-    <!-- Grupo 3 -->
-    <img src="IMG-20260207-WA0098.jpg" class="grande">
-    <img src="IMG-20260213-WA0017.jpg" class="media">
-    <img src="IMG-20260131-WA0009.jpg" class="pequena">
-
-    <!-- Grupo 4 -->
-    <img src="IMG-20260214-WA0077.jpg" class="grande">
-    <img src="IMG-20260214-WA0073.jpg" class="media">
-    <img src="IMG-20260214-WA0071.jpg" class="media">
-
-    <!-- Grupo 5 -->
-    <img src="IMG-20260214-WA0076.jpg" class="pequena">
-    <img src="IMG-20260214-WA0078.jpg" class="pequena">
-    <img src="IMG-20260214-WA0075.jpg" class="media">
-    
-    <!-- Adicionando fotos extras que estavam na sua lista do Github -->
-    <img src="IMG-20260117-WA0008.jpg" class="media">
-    <img src="IMG-20260202-WA0009.jpg" class="pequena">
-    <img src="IMG-20260203-WA0027.jpg" class="grande">
-    <img src="IMG-20260203-WA0044.jpg" class="media">
+  <div class="album" id="albumContainer">
+    <!-- As fotos serão inseridas aqui pelo JS para evitar o erro de carregamento precoce -->
   </div>
 
-  <!-- CARTA ABERTA -->
   <div class="carta">
     <p id="textoCarta"></p>
   </div>
 
-  <!-- QUIZ -->
   <div class="quiz" id="quiz"></div>
-
 </div>
 
 <script>
@@ -227,17 +197,53 @@ Te amo muito ❤️
 
 PS: Com amor, Victor`;
 
+// Lista organizada de fotos e tamanhos
+const fotos = [
+  {src: "IMG-20260117-WA0007.jpg", classe: "grande"},
+  {src: "IMG-20260117-WA0010.jpg", classe: "media"},
+  {src: "IMG-20260117-WA0009.jpg", classe: "pequena"},
+  {src: "IMG-20260117-WA0011.jpg", classe: "grande"},
+  {src: "IMG-20260130-WA0087.jpg", classe: "media"},
+  {src: "IMG-20260130-WA0088.jpg", classe: "pequena"},
+  {src: "IMG-20260207-WA0098.jpg", classe: "grande"},
+  {src: "IMG-20260213-WA0017.jpg", classe: "media"},
+  {src: "IMG-20260131-WA0009.jpg", classe: "pequena"},
+  {src: "IMG-20260214-WA0077.jpg", classe: "grande"},
+  {src: "IMG-20260214-WA0073.jpg", classe: "media"},
+  {src: "IMG-20260214-WA0071.jpg", classe: "media"},
+  {src: "IMG-20260214-WA0076.jpg", classe: "pequena"},
+  {src: "IMG-20260214-WA0078.jpg", classe: "pequena"},
+  {src: "IMG-20260214-WA0075.jpg", classe: "media"},
+  {src: "IMG-20260117-WA0008.jpg", classe: "media"},
+  {src: "IMG-20260202-WA0009.jpg", classe: "pequena"},
+  {src: "IMG-20260203-WA0027.jpg", classe: "grande"},
+  {src: "IMG-20260203-WA0044.jpg", classe: "media"}
+];
+
 function verificarSenha(){
   const senha = document.getElementById("senha").value;
   if(senha==="291125"){
     document.getElementById("login").style.display="none";
     document.getElementById("app").style.display="block";
     document.getElementById("textoCarta").innerText=texto;
+    carregarFotos(); // Chama a função para carregar as fotos só agora
     iniciarCerejas();
     gerarQuiz();
   } else {
     alert("Senha errada 😏");
   }
+}
+
+function carregarFotos(){
+  const container = document.getElementById("albumContainer");
+  fotos.forEach(foto => {
+    const img = document.createElement("img");
+    img.src = foto.src;
+    img.className = foto.classe;
+    // Se a imagem falhar (nome errado no github), ela não ocupa espaço
+    img.onerror = function() { this.style.display='none'; }; 
+    container.appendChild(img);
+  });
 }
 
 function iniciarCerejas(){
@@ -294,6 +300,5 @@ function gerarQuiz(){
   quizDiv.appendChild(resDiv);
 }
 </script>
-
 </body>
 </html>
