@@ -12,22 +12,7 @@ body{
   overflow-x:hidden;
   text-align:center;
   padding:20px;
-  background: linear-gradient(135deg, #2a003f, #660066);
-}
-
-/* CEREJAS CAINDO */
-.cherry{
-  position:fixed;
-  top:-20px;
-  font-size:20px;
-  animation:fall linear forwards;
-  z-index:5;
-}
-@keyframes fall{
-  to{
-    transform:translateY(100vh);
-    opacity:0;
-  }
+  background:black;
 }
 
 /* LOGIN COM VÍDEO */
@@ -52,7 +37,7 @@ body{
   height:100%;
   object-fit:cover;
   z-index:-1;
-  filter:brightness(0.3) saturate(1.2);
+  filter:brightness(0.5);
 }
 
 .login-screen input{
@@ -76,7 +61,7 @@ body{
 
 /* APP */
 .app{display:none; padding:20px; max-width:800px; margin:0 auto;}
-h1{ font-size:2.2em; margin-bottom:20px; color:#ff99cc; text-shadow:0 0 15px #ff99cc;}
+h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff6699;}
 
 /* ÁLBUM DE FOTOS */
 .album{
@@ -89,13 +74,10 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff99cc; text-shadow:0 0 15px #ff
 .album img{
   border-radius:15px;
   object-fit:cover;
-  transition:transform 0.3s, box-shadow 0.3s;
+  transition:transform 0.3s;
   cursor:pointer;
 }
-.album img:hover{ 
-  transform:scale(1.05); 
-  box-shadow:0 0 15px rgba(255,102,204,0.8);
-}
+.album img:hover{ transform:scale(1.05); }
 .album img.pequena{width:100px; height:100px;}
 .album img.media{width:150px; height:150px;}
 .album img.grande{width:250px; height:250px;}
@@ -108,7 +90,7 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff99cc; text-shadow:0 0 15px #ff
   border-radius:15px;
   max-width:600px;
   margin:0 auto 40px auto;
-  box-shadow:0 0 25px rgba(0,0,0,0.5);
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
   text-align:left;
   font-family: 'Georgia', serif;
   line-height:1.5em;
@@ -144,7 +126,7 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff99cc; text-shadow:0 0 15px #ff
   transition:0.3s;
 }
 .quiz button:hover{ transform:scale(1.05); }
-#resultado{ margin-top:15px; font-weight:bold; color:#ffccaa; text-shadow:0 0 5px black;}
+#resultado{ margin-top:15px; font-weight:bold; color:#ffccaa; }
 </style>
 </head>
 <body>
@@ -172,7 +154,7 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff99cc; text-shadow:0 0 15px #ff
     <img src="IMG-20260214-WA0076.jpg" class="pequena">
     <img src="IMG-20260214-WA0077.jpg" class="grande">
     <img src="IMG-20260214-WA0078.jpg" class="pequena">
-    <!-- Outras fotos podem ser adicionadas -->
+    <!-- Adicione aqui as outras fotos que você tiver -->
   </div>
 
   <!-- CARTA ABERTA -->
@@ -183,20 +165,10 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff99cc; text-shadow:0 0 15px #ff
 
   <!-- QUIZ -->
   <div class="quiz" id="quiz"></div>
+
 </div>
 
 <script>
-// CEREJAS
-setInterval(()=>{
-  const cherry=document.createElement("div");
-  cherry.classList.add("cherry");
-  cherry.innerHTML="🍒";
-  cherry.style.left=Math.random()*100+"vw";
-  cherry.style.animationDuration=(Math.random()*3+3)+"s";
-  document.body.appendChild(cherry);
-  setTimeout(()=>cherry.remove(),6000);
-},600);
-
 // LOGIN
 function verificarSenha(){
   const senha = document.getElementById("senha").value;
@@ -253,5 +225,6 @@ function gerarQuiz(){
   quizDiv.appendChild(resDiv);
 }
 </script>
+
 </body>
 </html>
