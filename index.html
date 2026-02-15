@@ -119,11 +119,30 @@ border-radius:20px;
 opacity:1;
 }
 
-/* CARTA ESTILO PAPEL ANTIGO */
+/* GALERIA */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:10px;
+margin-top:20px;
+}
+
+.gallery img{
+width:100%;
+border-radius:15px;
+opacity:0;
+transform:translateY(30px);
+transition:1s;
+}
+
+.gallery img.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* CARTA */
 .modalCarta{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.9);
@@ -134,40 +153,13 @@ z-index:20;
 }
 
 .carta-container{
-width:90%;
-max-width:500px;
-height:80%;
-background: url('https://i.imgur.com/kdF7lF1.png') no-repeat center/cover; /* Papel antigo */
+width:85%;
+max-width:350px;
+background:white;
 color:#333;
-padding:40px 30px;
-border-radius:15px;
-overflow-y:auto;
-position:relative;
-display:flex;
-align-items:flex-start;
-flex-direction:column;
-font-family: 'Times New Roman', serif;
-font-size:18px;
-line-height:1.6;
-box-shadow:0 0 30px rgba(0,0,0,0.7);
-}
-
-/* BOTÃO FECHAR */
-.fecharCarta{
-position:absolute;
-top:10px;
-left:10px;
-font-size:24px;
-font-weight:bold;
-background:none;
-border:none;
-cursor:pointer;
-color:#ff0066;
-}
-
-.fecharCarta:hover{
-color:#ff4d88;
-transition:0.3s;
+padding:20px;
+border-radius:20px;
+overflow:auto;
 }
 
 /* FINAL */
@@ -212,6 +204,7 @@ opacity:0;
 
 <div class="app" id="app">
 
+<!-- VIDEO AGORA FICA DENTRO DO APP -->
 <video autoplay muted loop playsinline id="bgVideo">
 <source src="VID-20260214-WA0080.mp4" type="video/mp4">
 </video>
@@ -222,18 +215,22 @@ opacity:0;
 
 <div class="contador" id="contador"></div>
 
+<button onclick="tocarMusica()">🎶 Nossa música</button>
 <button onclick="abrirCarta()">💌 Abrir Cartinha</button>
 
 <div class="slideshow">
 <img src="IMG-20260117-WA0007.jpg" class="slide active">
 <img src="IMG-20260117-WA0010.jpg" class="slide">
 <img src="IMG-20260130-WA0087.jpg" class="slide">
-<img src="IMG-20260207-WA0098.jpg" class="slide">
-<img src="IMG-20260213-WA0017.jpg" class="slide">
-<img src="IMG-20260214-WA0073.jpg" class="slide">
-<img src="IMG-20260214-WA0076.jpg" class="slide">
-<img src="IMG-20260214-WA0077.jpg" class="slide">
-<img src="IMG-20260214-WA0078.jpg" class="slide">
+</div>
+
+<div class="gallery">
+<img src="IMG-20260207-WA0098.jpg">
+<img src="IMG-20260213-WA0017.jpg">
+<img src="IMG-20260214-WA0073.jpg">
+<img src="IMG-20260214-WA0076.jpg">
+<img src="IMG-20260214-WA0077.jpg">
+<img src="IMG-20260214-WA0078.jpg">
 </div>
 
 <br>
@@ -243,7 +240,6 @@ opacity:0;
 
 <div class="modalCarta" id="modalCarta">
 <div class="carta-container">
-<button class="fecharCarta" onclick="fecharCarta()">X</button>
 <p id="textoDigitando"></p>
 </div>
 </div>
@@ -258,6 +254,7 @@ Para sempre nós. 💞
 </audio>
 
 <script>
+
 const texto=`Oi, amor... eu escolheria você todos os dias, em todas as versões da minha vida. 💖`;
 
 function verificarSenha(){
@@ -265,30 +262,16 @@ if(document.getElementById("senha").value==="291125"){
 document.getElementById("login").style.display="none";
 document.getElementById("app").style.display="block";
 iniciarContador();
+iniciarGaleria();
 iniciarSlide();
 iniciarCerejas();
-document.getElementById("musica").play();
 }else{
 alert("Senha errada 😏");
 }
 }
 
-function abrirCarta(){
-document.getElementById("modalCarta").style.display="flex";
-let i=0;
-const el=document.getElementById("textoDigitando");
-el.innerHTML="";
-function digitar(){
-if(i<texto.length){
-el.innerHTML+=texto.charAt(i);
-i++;
-setTimeout(digitar,60); // mais devagar, efeito de escrita
-}}
-digitar();
-}
-
-function fecharCarta(){
-document.getElementById("modalCarta").style.display="none";
+function tocarMusica(){
+document.getElementById("musica").play();
 }
 
 function iniciarContador(){
@@ -299,14 +282,11 @@ document.getElementById("contador").innerText=
 "Estamos juntos há "+diff+" dias 💞";
 }
 
-function iniciarSlide(){
-let slides=document.querySelectorAll(".slide");
-let index=0;
-setInterval(()=>{
-slides.forEach(s=>s.classList.remove("active"));
-slides[index].classList.add("active");
-index=(index+1)%slides.length;
-},3000);
+function iniciarGaleria(){
+const imgs=document.querySelectorAll(".gallery img");
+imgs.forEach((img,i)=>{
+setTimeout(()=>{img.classList.add("show");},i*400);
+});
 }
 
 function iniciarCerejas(){
@@ -321,9 +301,34 @@ setTimeout(()=>cherry.remove(),6000);
 },600);
 }
 
+function abrirCarta(){
+document.getElementById("modalCarta").style.display="flex";
+let i=0;
+const el=document.getElementById("textoDigitando");
+el.innerHTML="";
+function digitar(){
+if(i<texto.length){
+el.innerHTML+=texto.charAt(i);
+i++;
+setTimeout(digitar,30);
+}}
+digitar();
+}
+
+function iniciarSlide(){
+let slides=document.querySelectorAll(".slide");
+let index=0;
+setInterval(()=>{
+slides[index].classList.remove("active");
+index=(index+1)%slides.length;
+slides[index].classList.add("active");
+},4000);
+}
+
 function finalSurpresa(){
 document.getElementById("final").style.display="flex";
 }
+
 </script>
 
 </body>
