@@ -8,36 +8,27 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family: 'Segoe UI', sans-serif;
-  color:white;
   overflow-x:hidden;
   text-align:center;
-  padding:20px;
   background:black;
+  position:relative;
+  color:white;
 }
 
-/* LOGIN COM VÍDEO */
+/* LOGIN */
 .login-screen{
   position:fixed;
   top:0; left:0;
   width:100%;
   height:100vh;
   display:flex;
-  justify-content:center;
+  justify-content:flex-end;
   align-items:center;
   flex-direction:column;
+  padding-bottom:120px; /* título e login mais para baixo */
+  gap:15px;
   z-index:10;
-  color:white;
   text-shadow:0 0 10px black;
-}
-
-#bgLoginVideo{
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  z-index:-1;
-  filter:brightness(0.5);
 }
 
 .login-screen input{
@@ -59,8 +50,44 @@ body{
   box-shadow:0 0 15px rgba(255,0,100,0.6);
 }
 
+/* VIDEO LOGIN */
+#bgLoginVideo{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
+  filter:brightness(0.3);
+}
+
+/* FUNDO LUZES */
+.luzes{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle at center, rgba(255,0,200,0.05), rgba(100,0,150,0.1));
+  z-index:-1;
+}
+
+/* CEREJAS */
+.cherry{
+  position:fixed;
+  top:-20px;
+  font-size:20px;
+  animation:fall linear forwards;
+  z-index:5;
+}
+@keyframes fall{
+  to{
+    transform:translateY(100vh);
+    opacity:0;
+  }
+}
+
 /* APP */
-.app{display:none; padding:20px; max-width:800px; margin:0 auto;}
+.app{display:none; padding:20px; max-width:900px; margin:0 auto; position:relative; z-index:1;}
 h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff6699;}
 
 /* ÁLBUM DE FOTOS */
@@ -109,7 +136,7 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
   max-width:600px;
   margin:0 auto 50px auto;
   text-align:left;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
   padding:20px;
   border-radius:15px;
 }
@@ -131,7 +158,7 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- VIDEO LOGIN -->
 <div class="login-screen" id="login">
   <video autoplay muted loop playsinline id="bgLoginVideo">
     <source src="VID-20260214-WA0080.mp4" type="video/mp4">
@@ -141,8 +168,11 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
   <button onclick="verificarSenha()">Entrar 💕</button>
 </div>
 
+<div class="luzes"></div>
+
 <!-- APP -->
 <div class="app" id="app">
+
   <!-- ÁLBUM DE FOTOS -->
   <div class="album">
     <img src="IMG-20260117-WA0007.jpg" class="grande">
@@ -154,13 +184,11 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
     <img src="IMG-20260214-WA0076.jpg" class="pequena">
     <img src="IMG-20260214-WA0077.jpg" class="grande">
     <img src="IMG-20260214-WA0078.jpg" class="pequena">
-    <!-- Adicione aqui as outras fotos que você tiver -->
   </div>
 
   <!-- CARTA ABERTA -->
   <div class="carta">
-    <p>Oi, amor! 💖<br><br>
-    Eu quero que você saiba que cada momento contigo é único. Te amo todos os dias, em todas as versões da minha vida. Obrigado por ser meu melhor destino. 💌</p>
+    <p id="textoCarta"></p>
   </div>
 
   <!-- QUIZ -->
@@ -169,19 +197,42 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 </div>
 
 <script>
+// Texto da carta
+const texto=`Oi amor, feliz dia de São Valentim!  
+Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa,  
+porque por você eu faria qualquer coisa, até mesmo me reinventar só pra te fazer feliz, porque você merece o mundo.  
+Te amo muito ❤️  
+
+PS: Com amor, Victor`;
+
 // LOGIN
 function verificarSenha(){
   const senha = document.getElementById("senha").value;
   if(senha==="291125"){
     document.getElementById("login").style.display="none";
     document.getElementById("app").style.display="block";
+    document.getElementById("textoCarta").innerText=texto;
+    iniciarCerejas();
     gerarQuiz();
   } else {
     alert("Senha errada 😏");
   }
 }
 
-// QUIZ COM 10 PERGUNTAS ALEATÓRIAS
+// Cerejas caindo
+function iniciarCerejas(){
+  setInterval(()=>{
+    const cherry=document.createElement("div");
+    cherry.classList.add("cherry");
+    cherry.innerHTML="🍒";
+    cherry.style.left=Math.random()*100+"vw";
+    cherry.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(cherry);
+    setTimeout(()=>cherry.remove(),6000);
+  },500);
+}
+
+// Quiz com 10 perguntas aleatórias
 const perguntas = [
   {q:"Qual é minha cor favorita?", r:"Rosa", op:["Rosa","Azul","Verde"]},
   {q:"Qual é meu doce favorito?", r:"Chocolate", op:["Chocolate","Bala","Sorvete"]},
@@ -199,7 +250,6 @@ function gerarQuiz(){
   let acertos=0;
   const quizDiv = document.getElementById("quiz");
   quizDiv.innerHTML="<h2>Quiz do Amor 💞</h2>";
-  
   const perguntasSelecionadas = perguntas.sort(()=>0.5-Math.random()).slice(0,10);
   
   perguntasSelecionadas.forEach(pergunta=>{
