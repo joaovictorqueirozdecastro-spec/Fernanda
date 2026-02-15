@@ -8,20 +8,60 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(45deg,#000000,#220011);
   color:white;
   overflow-x:hidden;
   text-align:center;
   padding:20px;
+  background:black;
 }
 
-/* TÍTULO */
-h1{
-  font-size:2.2em;
-  margin-bottom:20px;
-  color:#ff6699;
-  text-shadow:0 0 10px #ff6699;
+/* LOGIN COM VÍDEO */
+.login-screen{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:10;
+  color:white;
+  text-shadow:0 0 10px black;
 }
+
+#bgLoginVideo{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-1;
+  filter:brightness(0.5);
+}
+
+.login-screen input{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.login-screen button{
+  padding:12px 18px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff4d88,#ff0066);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 15px rgba(255,0,100,0.6);
+}
+
+/* APP */
+.app{display:none; padding:20px; max-width:800px; margin:0 auto;}
+h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff6699;}
 
 /* ÁLBUM DE FOTOS */
 .album{
@@ -31,19 +71,13 @@ h1{
   justify-content:center;
   margin-bottom:30px;
 }
-
 .album img{
   border-radius:15px;
   object-fit:cover;
   transition:transform 0.3s;
   cursor:pointer;
 }
-
-.album img:hover{
-  transform:scale(1.05);
-}
-
-/* Diferentes tamanhos */
+.album img:hover{ transform:scale(1.05); }
 .album img.pequena{width:100px; height:100px;}
 .album img.media{width:150px; height:150px;}
 .album img.grande{width:250px; height:250px;}
@@ -62,7 +96,6 @@ h1{
   line-height:1.5em;
   position:relative;
 }
-
 .carta::before{
   content:"💌";
   position:absolute;
@@ -80,16 +113,8 @@ h1{
   padding:20px;
   border-radius:15px;
 }
-
-.quiz h2{
-  color:#ff99cc;
-  margin-bottom:15px;
-}
-
-.quiz .pergunta{
-  margin-bottom:15px;
-}
-
+.quiz h2{ color:#ff99cc; margin-bottom:15px; }
+.quiz .pergunta{ margin-bottom:15px; }
 .quiz button{
   margin:5px 5px 0 0;
   padding:8px 12px;
@@ -100,72 +125,104 @@ h1{
   cursor:pointer;
   transition:0.3s;
 }
-
-.quiz button:hover{
-  transform:scale(1.05);
-}
-
-#resultado{
-  margin-top:15px;
-  font-weight:bold;
-  color:#ffccaa;
-}
+.quiz button:hover{ transform:scale(1.05); }
+#resultado{ margin-top:15px; font-weight:bold; color:#ffccaa; }
 </style>
 </head>
 <body>
 
-<h1>Bem-vinda ❤️‍🩹</h1>
-
-<!-- ÁLBUM DE FOTOS -->
-<div class="album">
-  <img src="IMG-20260207-WA0098.jpg" class="grande">
-  <img src="IMG-20260213-WA0017.jpg" class="media">
-  <img src="IMG-20260214-WA0073.jpg" class="media">
-  <img src="IMG-20260214-WA0076.jpg" class="pequena">
-  <img src="IMG-20260214-WA0077.jpg" class="grande">
-  <img src="IMG-20260214-WA0078.jpg" class="pequena">
+<!-- LOGIN -->
+<div class="login-screen" id="login">
+  <video autoplay muted loop playsinline id="bgLoginVideo">
+    <source src="VID-20260214-WA0080.mp4" type="video/mp4">
+  </video>
+  <h1>Bem-vinda ❤️‍🩹</h1>
+  <input type="password" id="senha" placeholder="Senha secreta">
+  <button onclick="verificarSenha()">Entrar 💕</button>
 </div>
 
-<!-- CARTA ABERTA -->
-<div class="carta">
-  <p>Oi, amor! 💖<br><br>
-  Eu quero que você saiba que cada momento contigo é único. Te amo todos os dias, em todas as versões da minha vida. Obrigado por ser meu melhor destino. 💌</p>
-</div>
-
-<!-- QUIZ -->
-<div class="quiz">
-  <h2>Quiz do Amor 💞</h2>
-  
-  <div class="pergunta">
-    <p>1. Qual é minha cor favorita?</p>
-    <button onclick="verificar(this,'Rosa')">Rosa</button>
-    <button onclick="verificar(this,'Azul')">Azul</button>
-    <button onclick="verificar(this,'Verde')">Verde</button>
+<!-- APP -->
+<div class="app" id="app">
+  <!-- ÁLBUM DE FOTOS -->
+  <div class="album">
+    <img src="IMG-20260117-WA0007.jpg" class="grande">
+    <img src="IMG-20260117-WA0010.jpg" class="media">
+    <img src="IMG-20260130-WA0087.jpg" class="media">
+    <img src="IMG-20260207-WA0098.jpg" class="grande">
+    <img src="IMG-20260213-WA0017.jpg" class="media">
+    <img src="IMG-20260214-WA0073.jpg" class="media">
+    <img src="IMG-20260214-WA0076.jpg" class="pequena">
+    <img src="IMG-20260214-WA0077.jpg" class="grande">
+    <img src="IMG-20260214-WA0078.jpg" class="pequena">
+    <!-- Adicione aqui as outras fotos que você tiver -->
   </div>
 
-  <div class="pergunta">
-    <p>2. Qual é meu doce favorito?</p>
-    <button onclick="verificar(this,'Chocolate')">Chocolate</button>
-    <button onclick="verificar(this,'Bala')">Bala</button>
-    <button onclick="verificar(this,'Sorvete')">Sorvete</button>
+  <!-- CARTA ABERTA -->
+  <div class="carta">
+    <p>Oi, amor! 💖<br><br>
+    Eu quero que você saiba que cada momento contigo é único. Te amo todos os dias, em todas as versões da minha vida. Obrigado por ser meu melhor destino. 💌</p>
   </div>
 
-  <div id="resultado"></div>
+  <!-- QUIZ -->
+  <div class="quiz" id="quiz"></div>
+
 </div>
 
 <script>
-// QUIZ
-let acertos = 0;
-function verificar(botao,resposta){
-  const respostasCorretas = ['Rosa','Chocolate'];
-  if(respostasCorretas.includes(resposta)){
-    acertos++;
-    botao.style.background = 'green';
+// LOGIN
+function verificarSenha(){
+  const senha = document.getElementById("senha").value;
+  if(senha==="291125"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("app").style.display="block";
+    gerarQuiz();
   } else {
-    botao.style.background = 'red';
+    alert("Senha errada 😏");
   }
-  botao.disabled = true;
-  document.getElementById('resultado').innerText = "Acertos: "+acertos+"";
+}
+
+// QUIZ COM 10 PERGUNTAS ALEATÓRIAS
+const perguntas = [
+  {q:"Qual é minha cor favorita?", r:"Rosa", op:["Rosa","Azul","Verde"]},
+  {q:"Qual é meu doce favorito?", r:"Chocolate", op:["Chocolate","Bala","Sorvete"]},
+  {q:"Qual meu filme favorito?", r:"Titanic", op:["Titanic","Avatar","Vingadores"]},
+  {q:"Meu animal favorito?", r:"Cachorro", op:["Gato","Cachorro","Pássaro"]},
+  {q:"Minha estação favorita?", r:"Verão", op:["Verão","Inverno","Primavera"]},
+  {q:"Meu lugar dos sonhos?", r:"Canadá", op:["Canadá","Brasil","França"]},
+  {q:"Minha fruta favorita?", r:"Morango", op:["Morango","Banana","Maçã"]},
+  {q:"Meu hobby favorito?", r:"Música", op:["Música","Esporte","Leitura"]},
+  {q:"Minha bebida favorita?", r:"Café", op:["Café","Suco","Chá"]},
+  {q:"Minha comida favorita?", r:"Pizza", op:["Pizza","Lasanha","Sushi"]}
+];
+
+function gerarQuiz(){
+  let acertos=0;
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML="<h2>Quiz do Amor 💞</h2>";
+  
+  const perguntasSelecionadas = perguntas.sort(()=>0.5-Math.random()).slice(0,10);
+  
+  perguntasSelecionadas.forEach(pergunta=>{
+    const pDiv = document.createElement("div");
+    pDiv.classList.add("pergunta");
+    pDiv.innerHTML=`<p>${pergunta.q}</p>`;
+    pergunta.op.forEach(op=>{
+      const btn = document.createElement("button");
+      btn.innerText=op;
+      btn.onclick = ()=>{
+        if(op===pergunta.r){ acertos++; btn.style.background='green'; }
+        else{ btn.style.background='red'; }
+        btn.disabled=true;
+        pDiv.querySelectorAll("button").forEach(b=>b.disabled=true);
+        document.getElementById("resultado").innerText="Acertos: "+acertos;
+      }
+      pDiv.appendChild(btn);
+    });
+    quizDiv.appendChild(pDiv);
+  });
+  const resDiv = document.createElement("div");
+  resDiv.id="resultado";
+  quizDiv.appendChild(resDiv);
 }
 </script>
 
