@@ -25,7 +25,7 @@ body{
   justify-content:flex-end;
   align-items:center;
   flex-direction:column;
-  padding-bottom:120px; /* título e login mais para baixo */
+  padding-bottom:120px;
   gap:15px;
   z-index:10;
   text-shadow:0 0 10px black;
@@ -158,7 +158,7 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- VIDEO LOGIN -->
 <div class="login-screen" id="login">
   <video autoplay muted loop playsinline id="bgLoginVideo">
     <source src="VID-20260214-WA0080.mp4" type="video/mp4">
@@ -173,17 +173,27 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 <!-- APP -->
 <div class="app" id="app">
 
-  <!-- ÁLBUM DE FOTOS -->
+  <!-- ÁLBUM DE FOTOS DINÂMICO -->
   <div class="album">
     <img src="IMG-20260117-WA0007.jpg" class="grande">
     <img src="IMG-20260117-WA0010.jpg" class="media">
+    <img src="IMG-20260117-WA0009.jpg" class="pequena">
+    
+    <img src="IMG-20260117-WA0011.jpg" class="grande">
     <img src="IMG-20260130-WA0087.jpg" class="media">
+    <img src="IMG-20260130-WA0088.jpg" class="pequena">
+    
     <img src="IMG-20260207-WA0098.jpg" class="grande">
     <img src="IMG-20260213-WA0017.jpg" class="media">
-    <img src="IMG-20260214-WA0073.jpg" class="media">
-    <img src="IMG-20260214-WA0076.jpg" class="pequena">
+    <img src="IMG-20260131-WA0009.jpg" class="pequena">
+
     <img src="IMG-20260214-WA0077.jpg" class="grande">
+    <img src="IMG-20260214-WA0073.jpg" class="media">
+    <img src="IMG-20260214-WA0071.jpg" class="media">
+
+    <img src="IMG-20260214-WA0076.jpg" class="pequena">
     <img src="IMG-20260214-WA0078.jpg" class="pequena">
+    <img src="IMG-20260214-WA0075.jpg" class="media">
   </div>
 
   <!-- CARTA ABERTA -->
@@ -197,7 +207,6 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 </div>
 
 <script>
-// Texto da carta
 const texto=`Oi amor, feliz dia de São Valentim!  
 Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa,  
 porque por você eu faria qualquer coisa, até mesmo me reinventar só pra te fazer feliz, porque você merece o mundo.  
@@ -205,7 +214,6 @@ Te amo muito ❤️
 
 PS: Com amor, Victor`;
 
-// LOGIN
 function verificarSenha(){
   const senha = document.getElementById("senha").value;
   if(senha==="291125"){
@@ -219,7 +227,6 @@ function verificarSenha(){
   }
 }
 
-// Cerejas caindo
 function iniciarCerejas(){
   setInterval(()=>{
     const cherry=document.createElement("div");
@@ -232,11 +239,10 @@ function iniciarCerejas(){
   },500);
 }
 
-// Quiz com 10 perguntas aleatórias
 const perguntas = [
-  {q:"Qual é minha cor favorita?", r:"Rosa", op:["Rosa","Azul","Verde"]},
-  {q:"Qual é meu doce favorito?", r:"Chocolate", op:["Chocolate","Bala","Sorvete"]},
-  {q:"Qual meu filme favorito?", r:"Titanic", op:["Titanic","Avatar","Vingadores"]},
+  {q:"Qual é minha cor favorita?", r:"Preto", op:["Preto","Vermelho","Branco"]},
+  {q:"Qual é meu doce favorito?", r:"Chocolate", op:["Torta","Mousse","Pave"]},
+  {q:"Qual meu filme favorito?", r:"Titanic", op:["Clube da Luta","Avatar","Vingadores"]},
   {q:"Meu animal favorito?", r:"Cachorro", op:["Gato","Cachorro","Pássaro"]},
   {q:"Minha estação favorita?", r:"Verão", op:["Verão","Inverno","Primavera"]},
   {q:"Meu lugar dos sonhos?", r:"Canadá", op:["Canadá","Brasil","França"]},
@@ -277,4 +283,5 @@ function gerarQuiz(){
 </script>
 
 </body>
-</html>
+  </html>
+      
