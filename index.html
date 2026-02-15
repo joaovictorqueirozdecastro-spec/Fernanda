@@ -154,12 +154,27 @@ z-index:20;
 
 .carta-container{
 width:85%;
-max-width:350px;
-background:white;
+max-width:400px;
+background:#fdf5e6; /* tom de papel antigo */
 color:#333;
-padding:20px;
+padding:30px;
 border-radius:20px;
 overflow:auto;
+position:relative;
+box-shadow:0 0 25px rgba(0,0,0,0.5);
+font-family: 'Georgia', serif;
+font-size:18px;
+line-height:1.5;
+}
+
+/* botão fechar */
+#fecharCarta{
+position:absolute;
+top:10px;
+right:15px;
+cursor:pointer;
+font-size:24px;
+font-weight:bold;
 }
 
 /* FINAL */
@@ -204,7 +219,6 @@ opacity:0;
 
 <div class="app" id="app">
 
-<!-- VIDEO AGORA FICA DENTRO DO APP -->
 <video autoplay muted loop playsinline id="bgVideo">
 <source src="VID-20260214-WA0080.mp4" type="video/mp4">
 </video>
@@ -215,7 +229,6 @@ opacity:0;
 
 <div class="contador" id="contador"></div>
 
-<button onclick="tocarMusica()">🎶 Nossa música</button>
 <button onclick="abrirCarta()">💌 Abrir Cartinha</button>
 
 <div class="slideshow">
@@ -240,6 +253,7 @@ opacity:0;
 
 <div class="modalCarta" id="modalCarta">
 <div class="carta-container">
+<span id="fecharCarta">❌</span>
 <p id="textoDigitando"></p>
 </div>
 </div>
@@ -254,81 +268,89 @@ Para sempre nós. 💞
 </audio>
 
 <script>
-
 const texto=`Oi, amor... eu escolheria você todos os dias, em todas as versões da minha vida. 💖`;
 
 function verificarSenha(){
-if(document.getElementById("senha").value==="291125"){
-document.getElementById("login").style.display="none";
-document.getElementById("app").style.display="block";
-iniciarContador();
-iniciarGaleria();
-iniciarSlide();
-iniciarCerejas();
-}else{
-alert("Senha errada 😏");
-}
+  if(document.getElementById("senha").value==="291125"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("app").style.display="block";
+
+    tocarMusica(); // música começa ao entrar
+    iniciarContador();
+    iniciarGaleria();
+    iniciarSlide();
+    iniciarCerejas();
+  } else {
+    alert("Senha errada 😏");
+  }
 }
 
 function tocarMusica(){
-document.getElementById("musica").play();
+  const musica = document.getElementById("musica");
+  musica.play().catch(()=>{}); // previne erro se autoplay bloqueado
 }
 
 function iniciarContador(){
-const inicio=new Date("2025-11-29");
-const hoje=new Date();
-const diff=Math.floor((hoje-inicio)/(1000*60*60*24));
-document.getElementById("contador").innerText=
-"Estamos juntos há "+diff+" dias 💞";
+  const inicio = new Date("2025-11-29");
+  const hoje = new Date();
+  const diff = Math.floor((hoje - inicio)/(1000*60*60*24));
+  document.getElementById("contador").innerText =
+    "Estamos juntos há "+diff+" dias 💞";
 }
 
 function iniciarGaleria(){
-const imgs=document.querySelectorAll(".gallery img");
-imgs.forEach((img,i)=>{
-setTimeout(()=>{img.classList.add("show");},i*400);
-});
+  const imgs = document.querySelectorAll(".gallery img");
+  imgs.forEach((img,i)=>{
+    setTimeout(()=>{img.classList.add("show");}, i*400);
+  });
 }
 
 function iniciarCerejas(){
-setInterval(()=>{
-const cherry=document.createElement("div");
-cherry.classList.add("cherry");
-cherry.innerHTML="🍒";
-cherry.style.left=Math.random()*100+"vw";
-cherry.style.animationDuration=(Math.random()*3+3)+"s";
-document.body.appendChild(cherry);
-setTimeout(()=>cherry.remove(),6000);
-},600);
+  setInterval(()=>{
+    const cherry = document.createElement("div");
+    cherry.classList.add("cherry");
+    cherry.innerHTML="🍒";
+    cherry.style.left=Math.random()*100+"vw";
+    cherry.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(cherry);
+    setTimeout(()=>cherry.remove(),6000);
+  },600);
 }
 
 function abrirCarta(){
-document.getElementById("modalCarta").style.display="flex";
-let i=0;
-const el=document.getElementById("textoDigitando");
-el.innerHTML="";
-function digitar(){
-if(i<texto.length){
-el.innerHTML+=texto.charAt(i);
-i++;
-setTimeout(digitar,30);
-}}
-digitar();
+  const modal = document.getElementById("modalCarta");
+  const el = document.getElementById("textoDigitando");
+  modal.style.display="flex";
+  el.innerHTML="";
+  let i=0;
+  function digitar(){
+    if(i<texto.length){
+      el.innerHTML+=texto.charAt(i);
+      i++;
+      setTimeout(digitar,30);
+    }
+  }
+  digitar();
+}
+
+// botão fechar carta
+document.getElementById("fecharCarta").onclick = function(){
+  document.getElementById("modalCarta").style.display="none";
 }
 
 function iniciarSlide(){
-let slides=document.querySelectorAll(".slide");
-let index=0;
-setInterval(()=>{
-slides[index].classList.remove("active");
-index=(index+1)%slides.length;
-slides[index].classList.add("active");
-},4000);
+  let slides = document.querySelectorAll(".slide");
+  let index = 0;
+  setInterval(()=>{
+    slides.forEach(s=>s.classList.remove("active"));
+    slides[index].classList.add("active");
+    index = (index+1)%slides.length;
+  },4000);
 }
 
 function finalSurpresa(){
-document.getElementById("final").style.display="flex";
+  document.getElementById("final").style.display="flex";
 }
-
 </script>
 
 </body>
