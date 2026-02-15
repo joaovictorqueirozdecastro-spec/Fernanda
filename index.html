@@ -22,8 +22,8 @@ body{
   width:100%;
   height:100vh;
   display:flex;
-  justify-content:center; /* Centraliza verticalmente */
-  align-items:center;     /* Centraliza horizontalmente */
+  justify-content:center;
+  align-items:center;
   flex-direction:column;
   gap:15px;
   z-index:10;
@@ -58,10 +58,6 @@ body{
   transition: transform 0.2s;
 }
 
-.login-screen button:active {
-  transform: scale(0.95);
-}
-
 /* IMAGEM DE FUNDO */
 #bgLoginImage{
   position:fixed;
@@ -70,7 +66,7 @@ body{
   height:100%;
   object-fit:cover;
   z-index:-2;
-  filter:brightness(0.6); /* Ajustado para dar destaque ao login */
+  filter:brightness(0.6);
 }
 
 /* FUNDO LUZES */
@@ -123,6 +119,7 @@ h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff
 .carta{
   background: #f5e1c0; color:#333; padding:25px; border-radius:15px; max-width:600px; margin:0 auto 40px auto;
   box-shadow:0 0 20px rgba(0,0,0,0.5); text-align:left; font-family: 'Georgia', serif; line-height:1.5em; position:relative;
+  white-space: pre-wrap; /* Garante que as quebras de linha do texto apareçam */
 }
 .carta::before{ content:"💌"; position:absolute; top:-15px; left:-15px; font-size:2em; }
 
@@ -145,7 +142,6 @@ h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff
   border-radius: 10px; width: 220px; font-weight: bold; border: 2px dashed white;
   animation: pop 0.5s ease-out forwards;
 }
-@keyframes pop { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 </style>
 </head>
 <body>
@@ -156,7 +152,6 @@ h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff
 
 <div class="login-screen" id="login">
   <img src="94065077ced9f341d7a81eb5c7cf0876.jpg" id="bgLoginImage" alt="Fundo">
-  
   <h1>Bem-vinda ❤️‍🩹</h1>
   <input type="password" id="senha" placeholder="Senha secreta">
   <button onclick="verificarSenha()">Entrar 💕</button>
@@ -210,7 +205,13 @@ function abrirBau() {
     localStorage.setItem("ultimoValeData", hoje);
 }
 
-const texto=`Oi amor, feliz dia de São Valentim! Esse é meu presente pra você. Queria fazer algo especial e à mão... Te amo muito ❤️\nPS: Com amor, Victor`;
+// O NOVO TEXTO ATUALIZADO AQUI:
+const texto = `Oi, amor, feliz Dia de São Valentim!  
+Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa.  
+Porque por você eu faria qualquer coisa, até mesmo me reinventar só pra te fazer feliz, porque você merece o mundo.  
+Te amo muito ❤️  
+
+PS: Com amor, Victor`;
 
 const fotos = [
   {src: "IMG-20260117-WA0007.jpg", classe: "grande"}, {src: "IMG-20260117-WA0010.jpg", classe: "media"},
