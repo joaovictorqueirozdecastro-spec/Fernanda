@@ -80,38 +80,32 @@ body{
   z-index:5;
 }
 @keyframes fall{
-  to{
-    transform:translateY(100vh);
-    opacity:0;
-  }
+  to{ transform:translateY(100vh); opacity:0; }
 }
 
 /* APP */
 .app{display:none; padding:20px; max-width:900px; margin:0 auto; position:relative; z-index:1;}
-h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff6699;}
+h1{ font-size:2.2em; margin-bottom:10px; color:#ff6699; text-shadow:0 0 10px #ff6699;}
+
+/* CONTADOR */
+#contador {
+  background: rgba(255, 102, 153, 0.1);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  border: 1px solid #ff6699;
+  font-size: 1.1em;
+}
+#contador span { font-weight: bold; color: #ff99cc; }
 
 /* ÁLBUM DE FOTOS */
 .album{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:30px;
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:30px;
 }
 .album img{
-  border-radius:15px;
-  object-fit:cover;
-  transition:transform 0.3s;
-  cursor:pointer;
-  /* CORREÇÃO: Esconde o ícone de imagem quebrada */
-  background-color: #1a1a1a; 
+  border-radius:15px; object-fit:cover; transition:transform 0.3s; cursor:pointer; background-color: #1a1a1a; 
 }
-
-/* Se a imagem falhar, ela fica invisível em vez de mostrar o erro */
-.album img:not([src]), .album img[src=""] {
-  visibility: hidden;
-}
-
+.album img:not([src]), .album img[src=""] { visibility: hidden; }
 .album img:hover{ transform:scale(1.05); }
 .album img.pequena{width:100px; height:100px;}
 .album img.media{width:150px; height:150px;}
@@ -119,52 +113,43 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 
 /* CARTA ABERTA */
 .carta{
-  background: #f5e1c0;
-  color:#333;
-  padding:25px;
-  border-radius:15px;
-  max-width:600px;
-  margin:0 auto 40px auto;
-  box-shadow:0 0 20px rgba(0,0,0,0.5);
-  text-align:left;
-  font-family: 'Georgia', serif;
-  line-height:1.5em;
-  position:relative;
+  background: #f5e1c0; color:#333; padding:25px; border-radius:15px; max-width:600px; margin:0 auto 40px auto;
+  box-shadow:0 0 20px rgba(0,0,0,0.5); text-align:left; font-family: 'Georgia', serif; line-height:1.5em; position:relative;
 }
-.carta::before{
-  content:"💌";
-  position:absolute;
-  top:-15px;
-  left:-15px;
-  font-size:2em;
-}
+.carta::before{ content:"💌"; position:absolute; top:-15px; left:-15px; font-size:2em; }
 
 /* QUIZ */
 .quiz{
-  max-width:600px;
-  margin:0 auto 50px auto;
-  text-align:left;
-  background: rgba(255,255,255,0.05);
-  padding:20px;
-  border-radius:15px;
+  max-width:600px; margin:0 auto 50px auto; text-align:left; background: rgba(255,255,255,0.05); padding:20px; border-radius:15px;
 }
 .quiz h2{ color:#ff99cc; margin-bottom:15px; }
 .quiz .pergunta{ margin-bottom:15px; }
 .quiz button{
-  margin:5px 5px 0 0;
-  padding:8px 12px;
-  border:none;
-  border-radius:10px;
-  background:linear-gradient(45deg,#ff4d88,#ff0066);
-  color:white;
-  cursor:pointer;
-  transition:0.3s;
+  margin:5px 5px 0 0; padding:8px 12px; border:none; border-radius:10px;
+  background:linear-gradient(45deg,#ff4d88,#ff0066); color:white; cursor:pointer; transition:0.3s;
 }
-.quiz button:hover{ transform:scale(1.05); }
-#resultado{ margin-top:15px; font-weight:bold; color:#ffccaa; }
+
+/* BAÚ E VALES */
+.bau-container { margin-top: 50px; padding-bottom: 80px; }
+.bau { font-size: 80px; cursor: pointer; transition: transform 0.3s; display: inline-block; }
+.bau:hover { transform: scale(1.1); }
+#msgBau { margin-top: 15px; color: #ffccaa; font-weight: bold; min-height: 24px; }
+.vales-area {
+  display: none; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 25px;
+}
+.vale {
+  background: linear-gradient(135deg, #ff99cc, #ff6699); color: white; padding: 20px;
+  border-radius: 10px; width: 220px; font-weight: bold; border: 2px dashed white;
+  animation: pop 0.5s ease-out forwards;
+}
+@keyframes pop { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 </style>
 </head>
 <body>
+
+<audio id="musicaFundo" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
 
 <div class="login-screen" id="login">
   <video autoplay muted loop playsinline id="bgLoginVideo">
@@ -178,26 +163,86 @@ h1{ font-size:2.2em; margin-bottom:20px; color:#ff6699; text-shadow:0 0 10px #ff
 <div class="luzes"></div>
 
 <div class="app" id="app">
-  <div class="album" id="albumContainer">
-    <!-- As fotos serão inseridas aqui pelo JS para evitar o erro de carregamento precoce -->
-  </div>
+  <h1>Nosso Amor ❤️</h1>
+  
+  <div id="contador">Estamos juntos há:<br><span id="tempo">Calculando...</span></div>
 
-  <div class="carta">
-    <p id="textoCarta"></p>
-  </div>
+  <div class="album" id="albumContainer"></div>
+  <div class="carta"><p id="textoCarta"></p></div>
+  <div id="quiz" class="quiz"></div>
 
-  <div class="quiz" id="quiz"></div>
+  <div class="bau-container">
+    <h2 style="color:#ff99cc;">Baú de Mimos</h2>
+    <p>Você só pode resgatar um vale por dia!</p>
+    <div class="bau" id="bauEmoji" onclick="abrirBau()">📦</div>
+    <div id="msgBau"></div>
+    <div class="vales-area" id="valesArea">
+      <!-- O vale sorteado aparecerá aqui -->
+    </div>
+  </div>
 </div>
 
 <script>
-const texto=`Oi amor, feliz dia de São Valentim!  
-Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa,  
-porque por você eu faria qualquer coisa, até mesmo me reinventar só pra te fazer feliz, porque você merece o mundo.  
-Te amo muito ❤️  
+// DATA DE INÍCIO (29 de Novembro de 2025)
+const dataInicio = new Date("2025-11-29T00:00:00");
 
+function atualizarContador() {
+    const agora = new Date();
+    const diff = agora - dataInicio;
+
+    const anos = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+    const meses = Math.floor((diff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+    const dias = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById("tempo").innerHTML = 
+        `${anos} anos, ${meses} meses, ${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
+}
+
+setInterval(atualizarContador, 1000);
+
+const valesPossiveis = [
+  "🎟️ VALE ABRAÇO INFINITO",
+  "🎟️ VALE BEIJO COM SAUDADE",
+  "🎟️ VALE SAPECAGEM 🔥",
+  "🎟️ VALE MASSAGEM RELAXANTE",
+  "🎟️ VALE CINEMINHA COM PIPOCA",
+  "🎟️ VALE JANTAR FAVORITO",
+  "🎟️ VALE UM DIA SEM RECLAMAR",
+  "🎟️ VALE CAFUNÉ ATÉ DORMIR"
+];
+
+function abrirBau() {
+    const hoje = new Date().toDateString();
+    const ultimoAcesso = localStorage.getItem("ultimoValeData");
+
+    if (ultimoAcesso === hoje) {
+        document.getElementById("msgBau").innerText = "Ei! Você já pegou seu presente de hoje. Volte amanhã! 😉";
+        return;
+    }
+
+    // Sorteia um vale
+    const sorteado = valesPossiveis[Math.floor(Math.random() * valesPossiveis.length)];
+    
+    const bau = document.getElementById("bauEmoji");
+    const area = document.getElementById("valesArea");
+    
+    bau.innerHTML = "🎁";
+    area.innerHTML = `<div class="vale">${sorteado}</div>`;
+    area.style.display = "flex";
+    
+    document.getElementById("msgBau").innerText = "Aproveite seu mimo de hoje! ❤️";
+    
+    // Salva que ela já abriu hoje
+    localStorage.setItem("ultimoValeData", hoje);
+}
+
+const texto=`Oi amor, feliz dia de São Valentim!  
+Esse é meu presente pra você. Queria fazer algo especial e à mão passei esses últimos dias aprendendo a programar só pra te fazer essa surpresa... Te amo muito ❤️  
 PS: Com amor, Victor`;
 
-// Lista organizada de fotos e tamanhos
 const fotos = [
   {src: "IMG-20260117-WA0007.jpg", classe: "grande"},
   {src: "IMG-20260117-WA0010.jpg", classe: "media"},
@@ -226,7 +271,8 @@ function verificarSenha(){
     document.getElementById("login").style.display="none";
     document.getElementById("app").style.display="block";
     document.getElementById("textoCarta").innerText=texto;
-    carregarFotos(); // Chama a função para carregar as fotos só agora
+    document.getElementById("musicaFundo").play();
+    carregarFotos();
     iniciarCerejas();
     gerarQuiz();
   } else {
@@ -240,7 +286,6 @@ function carregarFotos(){
     const img = document.createElement("img");
     img.src = foto.src;
     img.className = foto.classe;
-    // Se a imagem falhar (nome errado no github), ela não ocupa espaço
     img.onerror = function() { this.style.display='none'; }; 
     container.appendChild(img);
   });
@@ -276,7 +321,6 @@ function gerarQuiz(){
   const quizDiv = document.getElementById("quiz");
   quizDiv.innerHTML="<h2>Quiz do Amor 💞</h2>";
   const perguntasSelecionadas = perguntas.sort(()=>0.5-Math.random()).slice(0,10);
-  
   perguntasSelecionadas.forEach(pergunta=>{
     const pDiv = document.createElement("div");
     pDiv.classList.add("pergunta");
