@@ -10,7 +10,7 @@
 
 body{
 font-family: 'Segoe UI', sans-serif;
-background:black;
+background: linear-gradient(45deg,#000000,#220011);
 color:white;
 overflow-x:hidden;
 text-align:center;
@@ -47,6 +47,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 gap:15px;
+z-index:10;
 }
 
 input{
@@ -77,7 +78,10 @@ box-shadow:0 0 25px rgba(255,0,150,1);
 .app{
 display:none;
 padding:20px;
+min-height:100vh;
 animation:fadeIn 2s ease forwards;
+position:relative;
+z-index:1;
 }
 
 @keyframes fadeIn{
@@ -98,10 +102,13 @@ margin-top:20px;
 border-radius:20px;
 overflow:hidden;
 position:relative;
+height:250px;
 }
 
 .slideshow img{
 width:100%;
+height:100%;
+object-fit:cover;
 position:absolute;
 opacity:0;
 transition:opacity 1.5s ease;
@@ -189,12 +196,6 @@ opacity:0;
 </head>
 <body>
 
-<video autoplay muted loop playsinline id="bgVideo">
-<source src="VID-20260214-WA0080.mp4" type="video/mp4">
-</video>
-
-<div class="overlay"></div>
-
 <div class="login-screen" id="login">
 <h2>🔒 LoveApp Privado</h2>
 <input type="password" id="senha" placeholder="Senha secreta">
@@ -202,6 +203,13 @@ opacity:0;
 </div>
 
 <div class="app" id="app">
+
+<!-- VIDEO AGORA FICA DENTRO DO APP -->
+<video autoplay muted loop playsinline id="bgVideo">
+<source src="VID-20260214-WA0080.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
 
 <h1>Você é meu melhor destino 💖</h1>
 
@@ -324,4 +332,4 @@ document.getElementById("final").style.display="flex";
 </script>
 
 </body>
-  </html>
+</html>
