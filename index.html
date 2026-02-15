@@ -50,10 +50,6 @@ gap:15px;
 z-index:10;
 }
 
-.login-screen h2{
-color:white;
-}
-
 input{
 padding:10px;
 border-radius:10px;
@@ -200,20 +196,20 @@ opacity:0;
 </head>
 <body>
 
-<!-- VÍDEO DE FUNDO JÁ NO LOGIN -->
-<video autoplay muted loop playsinline id="bgVideo">
-<source src="VID-20260214-WA0080.mp4" type="video/mp4">
-</video>
-
-<div class="overlay"></div>
-
 <div class="login-screen" id="login">
-<h2>Bem vinda meu amor no seu lugarzinho 💖 qual a senha?</h2>
+<h2>🔒 LoveApp Privado</h2>
 <input type="password" id="senha" placeholder="Senha secreta">
 <button onclick="verificarSenha()">Entrar 💕</button>
 </div>
 
 <div class="app" id="app">
+
+<!-- VIDEO AGORA FICA DENTRO DO APP -->
+<video autoplay muted loop playsinline id="bgVideo">
+<source src="VID-20260214-WA0080.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
 
 <h1>Você é meu melhor destino 💖</h1>
 
@@ -222,23 +218,28 @@ opacity:0;
 <button onclick="tocarMusica()">🎶 Nossa música</button>
 <button onclick="abrirCarta()">💌 Abrir Cartinha</button>
 
-<!-- SLIDESHOW -->
 <div class="slideshow">
 <img src="IMG-20260117-WA0007.jpg" class="slide active">
 <img src="IMG-20260117-WA0010.jpg" class="slide">
 <img src="IMG-20260130-WA0087.jpg" class="slide">
 <img src="IMG-20260207-WA0098.jpg" class="slide">
 <img src="IMG-20260213-WA0017.jpg" class="slide">
+<img src="IMG-20260214-WA0073.jpg" class="slide">
+<img src="IMG-20260214-WA0076.jpg" class="slide">
+<img src="IMG-20260214-WA0077.jpg" class="slide">
+<img src="IMG-20260214-WA0078.jpg" class="slide">
 </div>
 
-<!-- GALERIA COMPLETA -->
 <div class="gallery">
+<img src="IMG-20260207-WA0098.jpg">
+<img src="IMG-20260213-WA0017.jpg">
 <img src="IMG-20260214-WA0073.jpg">
 <img src="IMG-20260214-WA0076.jpg">
 <img src="IMG-20260214-WA0077.jpg">
 <img src="IMG-20260214-WA0078.jpg">
-<img src="IMG-20260207-WA0098.jpg">
-<img src="IMG-20260213-WA0017.jpg">
+<img src="IMG-20260117-WA0007.jpg">
+<img src="IMG-20260117-WA0010.jpg">
+<img src="IMG-20260130-WA0087.jpg">
 </div>
 
 <br>
@@ -269,9 +270,6 @@ function verificarSenha(){
 if(document.getElementById("senha").value==="291125"){
 document.getElementById("login").style.display="none";
 document.getElementById("app").style.display="block";
-
-document.getElementById("musica").play(); // toca música automaticamente
-
 iniciarContador();
 iniciarGaleria();
 iniciarSlide();
